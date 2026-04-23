@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Feelings & Needs Board · Share with my partner</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      padding: 1.5rem 1rem 3rem;
+      color: #1e2a32;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* header */
+    .header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      background: linear-gradient(135deg, #2c3e66, #1b4d3b);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .header p {
+      color: #4a627a;
+      margin-top: 0.4rem;
+      font-weight: 500;
+    }
+
+    /* cards */
+    .card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(0px);
+      border-radius: 2rem;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+      padding: 1.5rem 1.4rem;
+      margin-bottom: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transition: all 0.1s ease;
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      border-left: 5px solid #3b8b6e;
+      padding-left: 0.8rem;
+      margin-bottom: 1.2rem;
+      color: #1e3a3a;
+    }
+
+    /* hint / note inside card */
+    .hint-badge {
+      background: #eef3fa;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      display: inline-block;
+      margin-left: 0.8rem;
+      vertical-align: middle;
+      font-weight: normal;
+      color: #2c6e5c;
+    }
+
+    .hint-text {
+      font-size: 0.75rem;
+      color: #5b7c93;
+      background: #f0f4f9;
+      padding: 0.4rem 0.8rem;
+      border-radius: 16px;
+      margin-top: 0.8rem;
+      display: inline-block;
+    }
+
+    /* checklist group */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: #ffffffd9;
+      padding: 0.5rem 1rem;
+      border-radius: 60px;
+      border: 1px solid #e2edf2;
+      transition: 0.1s;
+    }
+
+    .check-item label {
+      font-size: 1.05rem;
+      font-weight: 500;
+      flex: 1;
+      cursor: pointer;
+      color: #1f3b3a;
+    }
+
+    input[type="checkbox"] {
+      width: 1.4rem;
+      height: 1.4rem;
+      accent-color: #2c8f6e;
+      cursor: pointer;
+    }
+
+    /* yes/no/maybe group as toggle-buttons */
+    .choice-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 0.5rem 0 0.5rem 0;
+    }
+
+    .choice-btn {
+      flex: 1;
+      text-align: center;
+      background: #f1f5f9;
+      padding: 0.7rem 0;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid #cbdde9;
+      color: #2c4c5c;
+    }
+
+    .choice-btn.selected-yes {
+      background: #2b8c5e;
+      border-color: #1d6a48;
+      color: white;
+      box-shadow: 0 2px 8px rgba(43, 140, 94, 0.3);
+    }
+
+    .choice-btn.selected-no {
+      background: #bc6c4b;
+      border-color: #9e4e2e;
+      color: white;
+    }
+
+    .choice-btn.selected-maybe {
+      background: #e6b12e;
+      border-color: #c7971f;
+      color: #2c2b1f;
+    }
+
+    /* ABC section 3 options as radio cards */
+    .abc-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    .abc-card {
+      background: #f8fafc;
+      flex: 1;
+      text-align: center;
+      padding: 0.8rem 0.2rem;
+      border-radius: 1.2rem;
+      border: 1.5px solid #dce5ec;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.1s;
+    }
+
+    .abc-card.selected {
+      background: #2e5f7a;
+      border-color: #1a4156;
+      color: white;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+    }
+
+    .abc-card span:first-child {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    /* action buttons */
+    .action-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0 1.5rem;
+      justify-content: center;
+    }
+
+    button {
+      background: #2d5f7e;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 60px;
+      color: white;
+      cursor: pointer;
+      transition: 0.1s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button:hover {
+      background: #1f465f;
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background: #517a8b;
+    }
+
+    .btn-secondary:hover {
+      background: #3b5f6e;
+    }
+
+    .share-area {
+      background: #ffffffcc;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+      border: 1px solid #caddf0;
+      word-break: break-all;
+    }
+
+    .share-link {
+      font-size: 0.85rem;
+      background: #eef2f6;
+      padding: 0.7rem;
+      border-radius: 2rem;
+      font-family: monospace;
+      margin-top: 0.5rem;
+      border: 1px solid #cfdfea;
+    }
+
+    .copy-btn {
+      background: #458466;
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+      margin-top: 0.6rem;
+    }
+
+    .feedback {
+      font-size: 0.8rem;
+      color: #2a7f6e;
+      text-align: center;
+      margin-top: 0.6rem;
+    }
+
+    hr {
+      margin: 0.5rem 0;
+      border-color: #d4e2ec;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #6e8b9c;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 550px) {
+      .card {
+        padding: 1.2rem;
+      }
+      .choice-btn, .abc-card {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>🌱 voice board</h1>
+    <p>check what I feel like doing · yes/no/maybe · quick choice (A/B/C)</p>
+    <p style="font-size:0.85rem">✨ tap & share — helps me speak my mind when words are hard</p>
+  </div>
+
+  <!-- ========= SECTION 1 : ACTIVITIES (checklist) ========= -->
+  <div class="card">
+    <h2>📋 activities I want / don't want <span class="hint-badge">➕ editable</span></h2>
+    <div class="checklist" id="activitiesList">
+      <!-- dynamic checklist from JS -->
+    </div>
+    <div class="hint-text">
+      💡 <strong>HINT to add more activities:</strong> look inside the code for <code style="background:#e9ecef;">activitiesArray</code> — just add new strings like "Go for a walk", "Watch movie", etc. They'll appear automatically!
+    </div>
+  </div>
+
+  <!-- ========= SECTION 2 : YES / NO / MAYBE (single pick) ========= -->
+  <div class="card">
+    <h2>🤍 general feeling / energy <span class="hint-badge">one answer</span></h2>
+    <div class="choice-group" id="yesNoMaybeGroup">
+      <div data-value="yes" class="choice-btn">✅ YES</div>
+      <div data-value="no" class="choice-btn">❌ NO</div>
+      <div data-value="maybe" class="choice-btn">🤔 MAYBE</div>
+    </div>
+    <div class="hint-text" style="margin-top: 12px;">
+      💡 <strong>HINT:</strong> you can rename these labels in the JS object <code>defaults.yesNoOptions</code> or simply change text inside HTML. 
+    </div>
+  </div>
+
+  <!-- ========= SECTION 3 : A / B / C (customizable) ========= -->
+  <div class="card">
+    <h2>🔘 choose option <span class="hint-badge">A, B or C</span></h2>
+    <div class="abc-options" id="abcGroup">
+      <!-- dynamic A B C -->
+    </div>
+    <div class="hint-text">
+      💡 <strong>HINT to change A/B/C labels:</strong> edit <code>defaults.abcLabels</code> in the JavaScript (e.g., ["Low energy", "Medium", "Hyperfocus"]). Keep 3 items!
+    </div>
+  </div>
+
+  <!-- extra beneficial: short note / custom text for context -->
+  <div class="card">
+    <h2>✍️ extra note (optional)</h2>
+    <textarea id="freeNote" rows="2" placeholder="add anything extra, e.g. 'feeling overwhelmed' or 'need hug' ..." style="width:100%; padding:0.8rem; border-radius:24px; border:1px solid #cbdde9; font-family:inherit; resize:vertical;"></textarea>
+    <div class="hint-text">this will be included in the shareable summary 🌟</div>
+  </div>
+
+  <!-- action row -->
+  <div class="action-buttons">
+    <button id="saveAndShareBtn">🔗 SAVE & CREATE LINK</button>
+    <button id="resetBtn" class="btn-secondary">⟳ reset all</button>
+  </div>
+
+  <!-- share output area -->
+  <div class="share-area" id="shareArea" style="display: none;">
+    <div style="font-weight: 600; margin-bottom: 8px;">📎 share this link with your Mrs:</div>
+    <div id="shareLinkText" class="share-link">...</div>
+    <button id="copyLinkBtn" class="copy-btn">📋 copy link</button>
+    <div id="copyFeedback" class="feedback"></div>
+    <div style="font-size: 0.7rem; margin-top: 8px;">* link contains current selections. reopen anytime.</div>
+  </div>
+  <footer>💬 tap 'save & create link' → send the link → she sees exactly what you feel</footer>
+</div>
+
+<script>
+  // --------------------------------------------------------------
+  //  CUSTOMIZABLE DATA (ADD / EDIT ACTIVITIES, YES/NO TEXT, ABC LABELS)
+  // --------------------------------------------------------------
+  const defaults = {
+    // ✅ 1. ACTIVITIES: add or remove strings here — they will appear as checkboxes.
+    activities: [
+      "🚶 Go for a walk outside",
+      "📺 Watch a show together",
+      "🎧 Listen to music / chill",
+      "🍲 Cook a meal together",
+      "💬 Quiet time / no talking",
+      "🎮 Play a game (board/video)",
+      "🛁 Bath / self-care",
+      "📖 Read next to each other"
+    ],
+    // ✅ 2. YES/NO/MAYBE labels (change if you want different wording)
+    yesNoOptions: ["yes", "no", "maybe"],
+    // ✅ 3. ABC SECTION: exactly 3 items (change text & meaning)
+    abcLabels: ["A · rest & low demand", "B · medium activity", "C · high energy / go out"],
+    // optional extra fallback
+  };
+
+  // ---------- STATE ----------
+  let activitiesState = {};      // key: activityText -> boolean (checked = want)
+  let yesNoSelected = null;      // "yes", "no", "maybe"
+  let abcSelected = null;        // index 0,1,2
+  let freeNoteText = "";
+
+  // DOM elements
+  const activitiesContainer = document.getElementById("activitiesList");
+  const yesNoGroup = document.getElementById("yesNoMaybeGroup");
+  const abcContainer = document.getElementById("abcGroup");
+  const freeNoteElem = document.getElementById("freeNote");
+  const shareAreaDiv = document.getElementById("shareArea");
+  const shareLinkSpan = document.getElementById("shareLinkText");
+  const copyBtn = document.getElementById("copyLinkBtn");
+  const copyFeedbackSpan = document.getElementById("copyFeedback");
+  const saveBtn = document.getElementById("saveAndShareBtn");
+  const resetBtn = document.getElementById("resetBtn");
+
+  // ---------- helper: build activities UI ----------
+  function buildActivitiesUI() {
+    activitiesContainer.innerHTML = "";
+    defaults.activities.forEach(activity => {
+      const isChecked = activitiesState[activity] || false;
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "check-item";
+      const checkBox = document.createElement("input");
+      checkBox.type = "checkbox";
+      checkBox.checked = isChecked;
+      checkBox.addEventListener("change", (e) => {
+        activitiesState[activity] = e.target.checked;
+        // after change we don't auto-save until user clicks share
+      });
+      const label = document.createElement("label");
+      label.textContent = activity;
+      label.htmlFor = checkBox.id;
+      itemDiv.appendChild(checkBox);
+      itemDiv.appendChild(label);
+      activitiesContainer.appendChild(itemDiv);
+    });
+  }
+
+  // update activitiesState from checkboxes (sync after reset or load)
+  function syncActivitiesFromDOM() {
+    const checkboxes = activitiesContainer.querySelectorAll('input[type="checkbox"]');
+    const labels = activitiesContainer.querySelectorAll('.check-item label');
+    for (let i = 0; i < checkboxes.length; i++) {
+      const activityText = labels[i]?.textContent || "";
+      if (activityText) {
+        activitiesState[activityText] = checkboxes[i].checked;
+      }
+    }
+  }
+
+  // build yes/no/maybe UI with selected highlight
+  function buildYesNoUI() {
+    const btns = yesNoGroup.querySelectorAll('.choice-btn');
+    btns.forEach(btn => {
+      const val = btn.getAttribute('data-value');
+      btn.classList.remove('selected-yes', 'selected-no', 'selected-maybe');
+      if (yesNoSelected === val) {
+        if (val === 'yes') btn.classList.add('selected-yes');
+        else if (val === 'no') btn.classList.add('selected-no');
+        else if (val === 'maybe') btn.classList.add('selected-maybe');
+      }
+      // attach event if not already (clean way: reattach)
+      btn.removeEventListener('click', yesNoHandler);
+      btn.addEventListener('click', yesNoHandler);
+    });
+  }
+
+  function yesNoHandler(e) {
+    const val = e.currentTarget.getAttribute('data-value');
+    if (yesNoSelected === val) {
+      // optional: unselect? but typical UX leave selected. but we allow unselect? 
+      // but it's nicer to allow maybe clearing: double tap to unset? we implement unset on same:
+      yesNoSelected = null;
+    } else {
+      yesNoSelected = val;
+    }
+    buildYesNoUI();
+  }
+
+  // ABC UI
+  function buildAbcUI() {
+    abcContainer.innerHTML = "";
+    defaults.abcLabels.forEach((label, idx) => {
+      const card = document.createElement("div");
+      card.className = "abc-card";
+      if (abcSelected === idx) card.classList.add("selected");
+      const letter = idx === 0 ? "A" : idx === 1 ? "B" : "C";
+      card.innerHTML = `<span>${letter}</span> ${label}`;
+      card.addEventListener("click", () => {
+        if (abcSelected === idx) {
+          abcSelected = null;   // allow deselection
+        } else {
+          abcSelected = idx;
+        }
+        buildAbcUI();
+      });
+      abcContainer.appendChild(card);
+    });
+  }
+
+  // collect all current state into an object
+  function getCurrentState() {
+    syncActivitiesFromDOM();        // ensure latest check status
+    const freeText = freeNoteElem.value;
+    return {
+      activities: { ...activitiesState },
+      yesNo: yesNoSelected,
+      abcIndex: abcSelected,
+      abcLabels: defaults.abcLabels,   // store labels so that if changed in future, old links still consistent? we store labels for decoding.
+      note: freeText,
+      version: 1
+    };
+  }
+
+  // load state from object (restore)
+  function loadStateIntoUI(state) {
+    // activities
+    if (state.activities && typeof state.activities === 'object') {
+      defaults.activities.forEach(act => {
+        if (state.activities.hasOwnProperty(act)) {
+          activitiesState[act] = !!state.activities[act];
+        } else {
+          activitiesState[act] = false;
+        }
+      });
+    } else {
+      // reset all false
+      defaults.activities.forEach(act => { activitiesState[act] = false; });
+    }
+    buildActivitiesUI();  // refresh checkboxes to reflect loaded state
+
+    // yes/no
+    yesNoSelected = (state.yesNo && ["yes","no","maybe"].includes(state.yesNo)) ? state.yesNo : null;
+    buildYesNoUI();
+
+    // abc
+    if (typeof state.abcIndex === 'number' && state.abcIndex >=0 && state.abcIndex < 3) {
+      abcSelected = state.abcIndex;
+    } else {
+      abcSelected = null;
+    }
+    buildAbcUI();
+
+    // free note
+    freeNoteElem.value = state.note || "";
+  }
+
+  // generate full shareable text & encode into URL (hash fragment)
+  function generateShareableLink() {
+    const current = getCurrentState();
+    // stringify JSON + compress somewhat (no compression but fine)
+    const jsonStr = JSON.stringify(current);
+    // encode base64 to make URL safe (but not too long, readable enough)
+    // we use btoa (base64) but ensure unicode? JSON ascii fine.
+    let encoded;
+    try {
+      encoded = btoa(encodeURIComponent(jsonStr));
+    } catch(e) {
+      encoded = btoa(jsonStr);
+    }
+    // build current URL without hash
+    const baseUrl = window.location.href.split('#')[0];
+    const fullUrl = `${baseUrl}#data=${encoded}`;
+    return { fullUrl, state: current };
+  }
+
+  // decode from URL hash on page load
+  function restoreFromUrlIfPresent() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#data=')) {
+      const encoded = hash.substring(6); // after '#data='
+      try {
+        let decodedStr = decodeURIComponent(atob(encoded));
+        const state = JSON.parse(decodedStr);
+        // basic validation: version or activities exist
+        if (state && (state.activities || state.yesNo !== undefined)) {
+          loadStateIntoUI(state);
+          // also update note
+          if (state.note !== undefined) freeNoteElem.value = state.note;
+          // small feedback message in share area if needed
+          shareAreaDiv.style.display = 'block';
+          const fakeLink = window.location.href;
+          shareLinkSpan.innerText = fakeLink;
+          return true;
+        }
+      } catch(e) { console.warn("restore failed", e); }
+    }
+    return false;
+  }
+
+  // reset everything
+  function resetAllSelections() {
+    // clear activities
+    defaults.activities.forEach(act => { activitiesState[act] = false; });
+    buildActivitiesUI();
+    yesNoSelected = null;
+    buildYesNoUI();
+    abcSelected = null;
+    buildAbcUI();
+    freeNoteElem.value = "";
+    shareAreaDiv.style.display = "none";
+    copyFeedbackSpan.innerText = "";
+    // optional: clear url hash without reload
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  }
+
+  // main save & create link function
+  function saveAndCreateLink() {
+    // sync any last changes
+    syncActivitiesFromDOM();
+    const { fullUrl, state } = generateShareableLink();
+
+    // display share area
+    shareAreaDiv.style.display = "block";
+    shareLinkSpan.innerText = fullUrl;
+
+    // also update browser's URL hash without reload
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', fullUrl);
+    }
+
+    // optional flash message
+    copyFeedbackSpan.innerText = "✨ Link created! Copy & send to your partner.";
+    setTimeout(() => {
+      if (copyFeedbackSpan.innerText === "✨ Link created! Copy & send to your partner.") {
+        copyFeedbackSpan.innerText = "";
+      }
+    }, 3000);
+  }
+
+  // copy link to clipboard
+  async function copyLinkToClipboard() {
+    const linkText = shareLinkSpan.innerText;
+    if (!linkText || linkText === "...") {
+      copyFeedbackSpan.innerText = "❌ No link yet, press 'SAVE & CREATE LINK' first";
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(linkText);
+      copyFeedbackSpan.innerText = "✅ Link copied! Paste into chat / message";
+      setTimeout(() => {
+        if (copyFeedbackSpan.innerText === "✅ Link copied! Paste into chat / message") {
+          copyFeedbackSpan.innerText = "";
+        }
+      }, 2500);
+    } catch (err) {
+      copyFeedbackSpan.innerText = "⚠️ Manual copy: select link text";
+    }
+  }
+
+  // initialise state from empty or localstorage? we use URL first, else clean defaults.
+  function init() {
+    // set default empty activitiesState
+    defaults.activities.forEach(act => { activitiesState[act] = false; });
+    buildActivitiesUI();
+    buildYesNoUI();
+    buildAbcUI();
+    // try to restore from URL hash
+    const restored = restoreFromUrlIfPresent();
+    if (!restored) {
+      // fresh state: nothing selected
+      resetAllSelections();
+    } else {
+      // after restore, sync activitiesState may already set via loadStateIntoUI which called buildActivitiesUI etc.
+      // but double sync note
+      freeNoteElem.value = freeNoteElem.value;
+    }
+    // event listeners
+    saveBtn.addEventListener("click", saveAndCreateLink);
+    resetBtn.addEventListener("click", () => {
+      resetAllSelections();
+      // reset share area hide
+      shareAreaDiv.style.display = "none";
+      copyFeedbackSpan.innerText = "";
+      // optional clear url hash
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname);
+      }
+    });
+    copyBtn.addEventListener("click", copyLinkToClipboard);
+    freeNoteElem.addEventListener("input", () => {
+      // just update internal, no auto share
+    });
+  }
+
+  init();
+</script>
+</body>
+</html>
