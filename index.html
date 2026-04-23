@@ -19,7 +19,7 @@
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
     }
 
@@ -45,7 +45,6 @@
 
     .card {
       background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(0px);
       border-radius: 2rem;
       box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
       padding: 1.5rem 1.4rem;
@@ -62,62 +61,93 @@
       color: #1e3a3a;
     }
 
-    /* TWO COLUMN LAYOUT - SIDE BY SIDE, NO WRAP ON DESKTOP */
-    .dual-columns {
-      display: flex;
-      flex-direction: row;
+    /* SIDE BY SIDE LAYOUT - USING GRID */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
-    .column {
-      flex: 1;
-      min-width: 0; /* prevents overflow */
+
+    .activity-column {
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 1.5rem;
+      padding: 0.2rem;
     }
-    .column h3 {
+
+    .activity-column h3 {
       font-size: 1.2rem;
-      color: #2c6e5c;
-      margin-bottom: 1rem;
-      padding-left: 0.5rem;
-      border-left: 3px solid #8fc1b0;
+      font-weight: 600;
       text-align: center;
+      padding: 0.8rem;
+      border-radius: 2rem;
+      margin-bottom: 1rem;
+      color: white;
     }
+
+    .left-header {
+      background: #2c8f6e;
+    }
+
+    .right-header {
+      background: #bc6c4b;
+    }
+
     .checklist {
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.7rem;
     }
-    .check-item {
+
+    /* LEFT COLUMN: checkbox on LEFT */
+    .check-item-left {
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      background: #ffffffd9;
+      background: white;
       padding: 0.6rem 1rem;
       border-radius: 60px;
-      border: 1px solid #e2edf2;
+      border: 1px solid #d0e2ec;
+      transition: all 0.1s;
     }
-    .check-item label {
+
+    .check-item-left:hover {
+      background: #f9fffc;
+      border-color: #2c8f6e;
+    }
+
+    .check-item-left label {
       font-size: 1rem;
       font-weight: 500;
       flex: 1;
       cursor: pointer;
       color: #1f3b3a;
     }
-    input[type="checkbox"] {
+
+    .check-item-left input {
       width: 1.3rem;
       height: 1.3rem;
       accent-color: #2c8f6e;
       cursor: pointer;
     }
-    /* checkbox on right side for right column */
+
+    /* RIGHT COLUMN: checkbox on RIGHT */
     .check-item-right {
       display: flex;
       align-items: center;
       gap: 0.8rem;
-      background: #ffffffd9;
+      background: white;
       padding: 0.6rem 1rem;
       border-radius: 60px;
-      border: 1px solid #e2edf2;
+      border: 1px solid #f0d5cc;
+      transition: all 0.1s;
       flex-direction: row-reverse;
     }
+
+    .check-item-right:hover {
+      background: #fffaf8;
+      border-color: #bc6c4b;
+    }
+
     .check-item-right label {
       font-size: 1rem;
       font-weight: 500;
@@ -126,10 +156,11 @@
       color: #1f3b3a;
       text-align: left;
     }
+
     .check-item-right input {
       width: 1.3rem;
       height: 1.3rem;
-      accent-color: #bc6c4b; /* different color for right side to distinguish */
+      accent-color: #bc6c4b;
       cursor: pointer;
     }
 
@@ -281,10 +312,10 @@
       margin-top: 2rem;
     }
 
-    /* On mobile screens, they stack vertically but still look fine */
-    @media (max-width: 750px) {
-      .dual-columns {
-        flex-direction: column;
+    /* Mobile: stacks on top of each other */
+    @media (max-width: 700px) {
+      .activities-grid {
+        grid-template-columns: 1fr;
         gap: 1.5rem;
       }
       .card {
@@ -292,9 +323,6 @@
       }
       .choice-btn, .abc-card {
         font-size: 0.9rem;
-      }
-      .column h3 {
-        text-align: left;
       }
     }
   </style>
@@ -311,25 +339,21 @@
   <!-- ========= SECTION 1 : TWO ACTIVITIES LISTS SIDE BY SIDE ========= -->
   <div class="card">
     <h2>📋 activities I'd like to do</h2>
-    <div class="dual-columns">
-      <!-- LEFT COLUMN: checkboxes on LEFT side -->
-      <div class="column">
-        <h3>✨ want to try / open to</h3>
-        <div class="checklist" id="activitiesListLeft">
-          <!-- dynamic left checklist from JS -->
-        </div>
+    <div class="activities-grid">
+      <!-- LEFT COLUMN: checkboxes on LEFT (things I want) -->
+      <div class="activity-column">
+        <h3 class="left-header">✨ want to try / open to</h3>
+        <div class="checklist" id="activitiesListLeft"></div>
       </div>
-      <!-- RIGHT COLUMN: checkboxes on RIGHT side -->
-      <div class="column">
-        <h3>🚫 not today / prefer not</h3>
-        <div class="checklist" id="activitiesListRight">
-          <!-- dynamic right checklist from JS (same items, checkboxes on right) -->
-        </div>
+      <!-- RIGHT COLUMN: checkboxes on RIGHT (things I don't want) -->
+      <div class="activity-column">
+        <h3 class="right-header">🚫 not today / prefer not</h3>
+        <div class="checklist" id="activitiesListRight"></div>
       </div>
     </div>
   </div>
 
-  <!-- ========= SECTION 2 : YES / NO / MAYBE (single pick) ========= -->
+  <!-- ========= SECTION 2 : YES / NO / MAYBE ========= -->
   <div class="card">
     <h2>🤍 general feeling</h2>
     <div class="choice-group" id="yesNoMaybeGroup">
@@ -339,27 +363,25 @@
     </div>
   </div>
 
-  <!-- ========= SECTION 3 : A / B / C (customizable) ========= -->
+  <!-- ========= SECTION 3 : A / B / C ========= -->
   <div class="card">
     <h2>🔘 Who's Getting Involved</h2>
-    <div class="abc-options" id="abcGroup">
-      <!-- dynamic A B C -->
-    </div>
+    <div class="abc-options" id="abcGroup"></div>
   </div>
 
-  <!-- extra beneficial: short note for extra context -->
+  <!-- extra note -->
   <div class="card">
     <h2>✍️ extra note (optional)</h2>
     <textarea id="freeNote" rows="2" placeholder="add anything extra, e.g. 'feeling overwhelmed' or 'need hug' ..." style="width:100%; padding:0.8rem; border-radius:24px; border:1px solid #cbdde9; font-family:inherit; resize:vertical;"></textarea>
   </div>
 
-  <!-- action row -->
+  <!-- action buttons -->
   <div class="action-buttons">
     <button id="saveAndShareBtn">🔗 SAVE & CREATE LINK</button>
     <button id="resetBtn" class="btn-secondary">⟳ reset all</button>
   </div>
 
-  <!-- share output area -->
+  <!-- share area -->
   <div class="share-area" id="shareArea" style="display: none;">
     <div style="font-weight: 600; margin-bottom: 8px;">📎 share this link with your Mrs:</div>
     <div id="shareLinkText" class="share-link">...</div>
@@ -372,20 +394,24 @@
 
 <script>
   // ============================================================
-  // **************  EDITABLE SETTINGS (HINTS INSIDE CODE) **************
+  // **************  EDITABLE SETTINGS - CHANGE THINGS HERE **************
   // ============================================================
-  // Look below to easily customize:
-  // 1. ACTIVITIES list  -> add/remove any checkbox options (same list appears on both sides)
-  // 2. YES/NO/MAYBE labels -> change button text
-  // 3. A/B/C options -> rename the three choices
+  // 
+  // To add or remove activities, edit the "activities" array below.
+  // Add a new line with your activity inside quotes, with a comma at the end.
+  // Example: "✨ New Activity",
+  //
+  // To change YES/NO/MAYBE text, edit the "display" fields in yesNoButtons.
+  // To change A/B/C options, edit abcOptions letters and labels.
+  //
   // ============================================================
 
   const editableConfig = {
     // ------------------------------------------------------------------
-    // 📋 ACTIVITIES SECTION: add or remove any string you like.
-    //    Each string becomes a checkbox on BOTH sides.
-    //    LEFT side = checkboxes on left (things you WANT to do)
-    //    RIGHT side = checkboxes on right (things you DON'T want / avoid)
+    // 📋 ACTIVITIES: add or remove any items here.
+    //    Each one appears in BOTH columns.
+    //    Left column (green) = check if you WANT to do it
+    //    Right column (orange) = check if you DON'T want to do it
     // ------------------------------------------------------------------
     activities: [
       "👅 Lick",
@@ -397,14 +423,10 @@
       "💾 Save",
       "📤 Share",
       "🫣 Humiliation"
-      // 👆 ADD NEW ACTIVITIES HERE: just add a new line like:
-      // "🛒 Go grocery shopping",
-      // "🎨 Draw or paint together",
     ],
 
     // ------------------------------------------------------------------
-    // 🤍 YES / NO / MAYBE section: change the 3 labels and their emoji.
-    //    Keep exactly 3 items if you change structure, but simple text edits fine.
+    // YES/NO/MAYBE buttons - change display text if you want
     // ------------------------------------------------------------------
     yesNoButtons: [
       { value: "yes", display: "✅ YES" },
@@ -413,28 +435,20 @@
     ],
 
     // ------------------------------------------------------------------
-    // 🔘 A/B/C SECTION: change the three options below.
-    //    Each object has a letter (A,B,C) and a description.
-    //    You can change the description text to whatever you need.
+    // A/B/C options - change letter and label for each
     // ------------------------------------------------------------------
     abcOptions: [
       { letter: "👩‍❤️‍👨", label: "Both Get to Cum" },
       { letter: "🧛", label: "Just Me" },
       { letter: "🧕", label: "Just You" }
-      // 👆 Examples: change to "Do it later", "Do it today", "Do it together"
-      // Or "Low energy", "Moderate", "Hyperfocus". Anything you like.
     ]
   };
 
   // ---------- STATE ----------
-  // For LEFT column: things I WANT (checked = want to do)
-  let leftActivitiesState = {};      // key: activityText -> boolean
-  // For RIGHT column: things I DON'T WANT / avoid (checked = don't want / not today)
-  let rightActivitiesState = {};      // key: activityText -> boolean
-  
-  let yesNoSelected = null;      // "yes", "no", "maybe"
-  let abcSelected = null;        // index 0,1,2
-  let freeNoteText = "";
+  let leftState = {};    // things I WANT (checked = yes)
+  let rightState = {};   // things I DON'T WANT (checked = avoid)
+  let yesNoSelected = null;
+  let abcSelected = null;
 
   // DOM elements
   const leftContainer = document.getElementById("activitiesListLeft");
@@ -449,72 +463,71 @@
   const saveBtn = document.getElementById("saveAndShareBtn");
   const resetBtn = document.getElementById("resetBtn");
 
-  // ---------- helper: build LEFT activities UI (checkbox on left) ----------
-  function buildLeftActivitiesUI() {
+  // Build LEFT column (checkbox on left)
+  function buildLeftColumn() {
     leftContainer.innerHTML = "";
     editableConfig.activities.forEach(activity => {
-      const isChecked = leftActivitiesState[activity] || false;
-      const itemDiv = document.createElement("div");
-      itemDiv.className = "check-item";  // normal: checkbox on left
-      const checkBox = document.createElement("input");
-      checkBox.type = "checkbox";
-      checkBox.checked = isChecked;
-      checkBox.addEventListener("change", (e) => {
-        leftActivitiesState[activity] = e.target.checked;
+      const div = document.createElement("div");
+      div.className = "check-item-left";
+      
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = leftState[activity] || false;
+      checkbox.addEventListener("change", (e) => {
+        leftState[activity] = e.target.checked;
       });
+      
       const label = document.createElement("label");
       label.textContent = activity;
-      itemDiv.appendChild(checkBox);
-      itemDiv.appendChild(label);
-      leftContainer.appendChild(itemDiv);
+      
+      div.appendChild(checkbox);
+      div.appendChild(label);
+      leftContainer.appendChild(div);
     });
   }
 
-  // ---------- helper: build RIGHT activities UI (checkbox on right side) ----------
-  function buildRightActivitiesUI() {
+  // Build RIGHT column (checkbox on right)
+  function buildRightColumn() {
     rightContainer.innerHTML = "";
     editableConfig.activities.forEach(activity => {
-      const isChecked = rightActivitiesState[activity] || false;
-      const itemDiv = document.createElement("div");
-      itemDiv.className = "check-item-right";  // special class: checkbox on right
-      const checkBox = document.createElement("input");
-      checkBox.type = "checkbox";
-      checkBox.checked = isChecked;
-      checkBox.addEventListener("change", (e) => {
-        rightActivitiesState[activity] = e.target.checked;
+      const div = document.createElement("div");
+      div.className = "check-item-right";
+      
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = rightState[activity] || false;
+      checkbox.addEventListener("change", (e) => {
+        rightState[activity] = e.target.checked;
       });
+      
       const label = document.createElement("label");
       label.textContent = activity;
-      // For right side: append checkbox AFTER label (flex-direction row-reverse in CSS)
-      itemDiv.appendChild(label);
-      itemDiv.appendChild(checkBox);
-      rightContainer.appendChild(itemDiv);
+      
+      div.appendChild(label);
+      div.appendChild(checkbox);
+      rightContainer.appendChild(div);
     });
   }
 
-  // sync both sides from DOM (to capture any changes made directly)
-  function syncActivitiesFromDOM() {
-    // left side sync
-    const leftChecks = leftContainer.querySelectorAll('input[type="checkbox"]');
-    const leftLabels = leftContainer.querySelectorAll('.check-item label');
+  // Sync state from DOM
+  function syncFromDOM() {
+    // Left column
+    const leftChecks = leftContainer.querySelectorAll('.check-item-left input');
+    const leftLabels = leftContainer.querySelectorAll('.check-item-left label');
     for (let i = 0; i < leftChecks.length; i++) {
-      const activityText = leftLabels[i]?.textContent || "";
-      if (activityText) {
-        leftActivitiesState[activityText] = leftChecks[i].checked;
-      }
+      const text = leftLabels[i]?.textContent || "";
+      if (text) leftState[text] = leftChecks[i].checked;
     }
-    // right side sync
-    const rightChecks = rightContainer.querySelectorAll('.check-item-right input[type="checkbox"]');
+    // Right column
+    const rightChecks = rightContainer.querySelectorAll('.check-item-right input');
     const rightLabels = rightContainer.querySelectorAll('.check-item-right label');
     for (let i = 0; i < rightChecks.length; i++) {
-      const activityText = rightLabels[i]?.textContent || "";
-      if (activityText) {
-        rightActivitiesState[activityText] = rightChecks[i].checked;
-      }
+      const text = rightLabels[i]?.textContent || "";
+      if (text) rightState[text] = rightChecks[i].checked;
     }
   }
 
-  // build yes/no UI dynamically from editableConfig.yesNoButtons
+  // Build YES/NO/MAYBE UI
   function buildYesNoUI() {
     yesNoGroup.innerHTML = "";
     editableConfig.yesNoButtons.forEach(btn => {
@@ -539,7 +552,7 @@
     });
   }
 
-  // build A/B/C UI from editableConfig.abcOptions
+  // Build A/B/C UI
   function buildAbcUI() {
     abcContainer.innerHTML = "";
     editableConfig.abcOptions.forEach((opt, idx) => {
@@ -559,104 +572,86 @@
     });
   }
 
-  // collect all current selections into a state object
+  // Get full state object
   function getCurrentState() {
-    syncActivitiesFromDOM();
-    const freeText = freeNoteElem.value;
+    syncFromDOM();
     return {
-      leftActivities: { ...leftActivitiesState },
-      rightActivities: { ...rightActivitiesState },
+      left: { ...leftState },
+      right: { ...rightState },
       yesNo: yesNoSelected,
-      abcIndex: abcSelected,
-      abcLabels: editableConfig.abcOptions.map(opt => ({ letter: opt.letter, label: opt.label })),
-      note: freeText,
-      version: 3   // version bump for dual lists
+      abc: abcSelected,
+      note: freeNoteElem.value,
+      version: 4
     };
   }
 
-  // load state into UI (used when restoring from link)
+  // Load state into UI
   function loadStateIntoUI(state) {
-    // left activities
-    if (state.leftActivities && typeof state.leftActivities === 'object') {
+    // Reset states
+    editableConfig.activities.forEach(act => {
+      leftState[act] = false;
+      rightState[act] = false;
+    });
+    
+    if (state.left) {
       editableConfig.activities.forEach(act => {
-        leftActivitiesState[act] = !!state.leftActivities[act];
+        if (state.left.hasOwnProperty(act)) leftState[act] = !!state.left[act];
       });
-    } else {
-      editableConfig.activities.forEach(act => { leftActivitiesState[act] = false; });
     }
-    // right activities
-    if (state.rightActivities && typeof state.rightActivities === 'object') {
+    if (state.right) {
       editableConfig.activities.forEach(act => {
-        rightActivitiesState[act] = !!state.rightActivities[act];
+        if (state.right.hasOwnProperty(act)) rightState[act] = !!state.right[act];
       });
-    } else {
-      editableConfig.activities.forEach(act => { rightActivitiesState[act] = false; });
     }
-    buildLeftActivitiesUI();
-    buildRightActivitiesUI();
-
-    // yes/no
-    if (state.yesNo && editableConfig.yesNoButtons.some(b => b.value === state.yesNo)) {
-      yesNoSelected = state.yesNo;
-    } else {
-      yesNoSelected = null;
-    }
+    
+    buildLeftColumn();
+    buildRightColumn();
+    
+    yesNoSelected = state.yesNo || null;
     buildYesNoUI();
-
-    // abc: restore based on index
-    if (typeof state.abcIndex === 'number' && state.abcIndex >= 0 && state.abcIndex < editableConfig.abcOptions.length) {
-      abcSelected = state.abcIndex;
-    } else {
-      abcSelected = null;
-    }
+    
+    abcSelected = (typeof state.abc === 'number' && state.abc >= 0 && state.abc < editableConfig.abcOptions.length) ? state.abc : null;
     buildAbcUI();
-
-    // free note
+    
     freeNoteElem.value = state.note || "";
   }
 
-  // generate shareable link containing full state
+  // Generate shareable link
   function generateShareableLink() {
     const current = getCurrentState();
     const jsonStr = JSON.stringify(current);
-    let encoded;
-    try {
-      encoded = btoa(encodeURIComponent(jsonStr));
-    } catch(e) {
-      encoded = btoa(jsonStr);
-    }
+    let encoded = btoa(encodeURIComponent(jsonStr));
     const baseUrl = window.location.href.split('#')[0];
-    const fullUrl = `${baseUrl}#data=${encoded}`;
-    return { fullUrl, state: current };
+    return `${baseUrl}#data=${encoded}`;
   }
 
-  // restore from URL hash on page load
-  function restoreFromUrlIfPresent() {
+  // Restore from URL
+  function restoreFromURL() {
     const hash = window.location.hash;
     if (hash && hash.startsWith('#data=')) {
-      const encoded = hash.substring(6);
       try {
-        let decodedStr = decodeURIComponent(atob(encoded));
-        const state = JSON.parse(decodedStr);
-        if (state && (state.leftActivities || state.rightActivities || state.yesNo !== undefined)) {
+        const encoded = hash.substring(6);
+        const decoded = decodeURIComponent(atob(encoded));
+        const state = JSON.parse(decoded);
+        if (state && (state.left || state.right || state.yesNo !== undefined)) {
           loadStateIntoUI(state);
           shareAreaDiv.style.display = 'block';
           shareLinkSpan.innerText = window.location.href;
           return true;
         }
-      } catch(e) { console.warn("restore failed", e); }
+      } catch(e) { console.log("restore failed", e); }
     }
     return false;
   }
 
-  // reset everything to empty/unchecked
-  function resetAllSelections() {
-    editableConfig.activities.forEach(act => { 
-      leftActivitiesState[act] = false;
-      rightActivitiesState[act] = false;
+  // Reset everything
+  function resetAll() {
+    editableConfig.activities.forEach(act => {
+      leftState[act] = false;
+      rightState[act] = false;
     });
-    buildLeftActivitiesUI();
-    buildRightActivitiesUI();
+    buildLeftColumn();
+    buildRightColumn();
     yesNoSelected = null;
     buildYesNoUI();
     abcSelected = null;
@@ -664,23 +659,20 @@
     freeNoteElem.value = "";
     shareAreaDiv.style.display = "none";
     copyFeedbackSpan.innerText = "";
-    if (window.history && window.history.replaceState) {
+    if (window.history) {
       window.history.replaceState(null, '', window.location.pathname);
     }
   }
 
-  // save current selections, create shareable link, update UI and URL
+  // Save and create link
   function saveAndCreateLink() {
-    syncActivitiesFromDOM();
-    const { fullUrl } = generateShareableLink();
-
+    syncFromDOM();
+    const fullUrl = generateShareableLink();
     shareAreaDiv.style.display = "block";
     shareLinkSpan.innerText = fullUrl;
-
-    if (window.history && window.history.replaceState) {
+    if (window.history) {
       window.history.replaceState(null, '', fullUrl);
     }
-
     copyFeedbackSpan.innerText = "✨ Link created! Copy & send to your partner.";
     setTimeout(() => {
       if (copyFeedbackSpan.innerText === "✨ Link created! Copy & send to your partner.") {
@@ -689,53 +681,50 @@
     }, 3000);
   }
 
-  // copy link to clipboard
-  async function copyLinkToClipboard() {
-    const linkText = shareLinkSpan.innerText;
-    if (!linkText || linkText === "...") {
-      copyFeedbackSpan.innerText = "❌ No link yet, press 'SAVE & CREATE LINK' first";
+  // Copy link
+  async function copyLink() {
+    const link = shareLinkSpan.innerText;
+    if (!link || link === "...") {
+      copyFeedbackSpan.innerText = "❌ Press 'SAVE & CREATE LINK' first";
       return;
     }
     try {
-      await navigator.clipboard.writeText(linkText);
-      copyFeedbackSpan.innerText = "✅ Link copied! Paste into chat / message";
+      await navigator.clipboard.writeText(link);
+      copyFeedbackSpan.innerText = "✅ Link copied! Send to your Mrs";
       setTimeout(() => {
-        if (copyFeedbackSpan.innerText === "✅ Link copied! Paste into chat / message") {
+        if (copyFeedbackSpan.innerText === "✅ Link copied! Send to your Mrs") {
           copyFeedbackSpan.innerText = "";
         }
       }, 2500);
-    } catch (err) {
-      copyFeedbackSpan.innerText = "⚠️ Manual copy: select link text";
+    } catch(err) {
+      copyFeedbackSpan.innerText = "⚠️ Copy manually";
     }
   }
 
-  // initialize the app
+  // Initialize
   function init() {
-    // initialize both states with false
-    editableConfig.activities.forEach(act => { 
-      leftActivitiesState[act] = false;
-      rightActivitiesState[act] = false;
+    editableConfig.activities.forEach(act => {
+      leftState[act] = false;
+      rightState[act] = false;
     });
-    buildLeftActivitiesUI();
-    buildRightActivitiesUI();
+    buildLeftColumn();
+    buildRightColumn();
     buildYesNoUI();
     buildAbcUI();
     
-    const restored = restoreFromUrlIfPresent();
+    const restored = restoreFromURL();
     if (!restored) {
-      resetAllSelections(); // fresh empty state
+      resetAll();
     }
-
+    
     saveBtn.addEventListener("click", saveAndCreateLink);
     resetBtn.addEventListener("click", () => {
-      resetAllSelections();
+      resetAll();
       shareAreaDiv.style.display = "none";
-      copyFeedbackSpan.innerText = "";
     });
-    copyBtn.addEventListener("click", copyLinkToClipboard);
-    freeNoteElem.addEventListener("input", () => {});
+    copyBtn.addEventListener("click", copyLink);
   }
-
+  
   init();
 </script>
 </body>
