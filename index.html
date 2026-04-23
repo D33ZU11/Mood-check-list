@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Feelings & Needs Board · Share with my partner</title>
+  <title>Feelings & Needs Board · share with partner</title>
   <style>
     * {
       box-sizing: border-box;
@@ -23,7 +23,6 @@
       margin: 0 auto;
     }
 
-    /* header */
     .header {
       text-align: center;
       margin-bottom: 2rem;
@@ -44,7 +43,6 @@
       font-weight: 500;
     }
 
-    /* cards */
     .card {
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(0px);
@@ -53,7 +51,6 @@
       padding: 1.5rem 1.4rem;
       margin-bottom: 2rem;
       border: 1px solid rgba(255, 255, 255, 0.6);
-      transition: all 0.1s ease;
     }
 
     .card h2 {
@@ -65,30 +62,6 @@
       color: #1e3a3a;
     }
 
-    /* hint / note inside card */
-    .hint-badge {
-      background: #eef3fa;
-      font-size: 0.7rem;
-      padding: 0.2rem 0.6rem;
-      border-radius: 30px;
-      display: inline-block;
-      margin-left: 0.8rem;
-      vertical-align: middle;
-      font-weight: normal;
-      color: #2c6e5c;
-    }
-
-    .hint-text {
-      font-size: 0.75rem;
-      color: #5b7c93;
-      background: #f0f4f9;
-      padding: 0.4rem 0.8rem;
-      border-radius: 16px;
-      margin-top: 0.8rem;
-      display: inline-block;
-    }
-
-    /* checklist group */
     .checklist {
       display: flex;
       flex-direction: column;
@@ -103,7 +76,6 @@
       padding: 0.5rem 1rem;
       border-radius: 60px;
       border: 1px solid #e2edf2;
-      transition: 0.1s;
     }
 
     .check-item label {
@@ -121,7 +93,6 @@
       cursor: pointer;
     }
 
-    /* yes/no/maybe group as toggle-buttons */
     .choice-group {
       display: flex;
       flex-wrap: wrap;
@@ -161,7 +132,6 @@
       color: #2c2b1f;
     }
 
-    /* ABC section 3 options as radio cards */
     .abc-options {
       display: flex;
       flex-wrap: wrap;
@@ -194,7 +164,6 @@
       margin-right: 6px;
     }
 
-    /* action buttons */
     .action-buttons {
       display: flex;
       flex-wrap: wrap;
@@ -265,11 +234,6 @@
       margin-top: 0.6rem;
     }
 
-    hr {
-      margin: 0.5rem 0;
-      border-color: #d4e2ec;
-    }
-
     footer {
       text-align: center;
       font-size: 0.7rem;
@@ -298,44 +262,34 @@
 
   <!-- ========= SECTION 1 : ACTIVITIES (checklist) ========= -->
   <div class="card">
-    <h2>📋 activities I want / don't want <span class="hint-badge">➕ editable</span></h2>
+    <h2>📋 activities I want / don't want</h2>
     <div class="checklist" id="activitiesList">
       <!-- dynamic checklist from JS -->
-    </div>
-    <div class="hint-text">
-      💡 <strong>HINT to add more activities:</strong> look inside the code for <code style="background:#e9ecef;">activitiesArray</code> — just add new strings like "Go for a walk", "Watch movie", etc. They'll appear automatically!
     </div>
   </div>
 
   <!-- ========= SECTION 2 : YES / NO / MAYBE (single pick) ========= -->
   <div class="card">
-    <h2>🤍 general feeling / energy <span class="hint-badge">one answer</span></h2>
+    <h2>🤍 general feeling / energy</h2>
     <div class="choice-group" id="yesNoMaybeGroup">
       <div data-value="yes" class="choice-btn">✅ YES</div>
       <div data-value="no" class="choice-btn">❌ NO</div>
       <div data-value="maybe" class="choice-btn">🤔 MAYBE</div>
     </div>
-    <div class="hint-text" style="margin-top: 12px;">
-      💡 <strong>HINT:</strong> you can rename these labels in the JS object <code>defaults.yesNoOptions</code> or simply change text inside HTML. 
-    </div>
   </div>
 
   <!-- ========= SECTION 3 : A / B / C (customizable) ========= -->
   <div class="card">
-    <h2>🔘 choose option <span class="hint-badge">A, B or C</span></h2>
+    <h2>🔘 choose option</h2>
     <div class="abc-options" id="abcGroup">
       <!-- dynamic A B C -->
     </div>
-    <div class="hint-text">
-      💡 <strong>HINT to change A/B/C labels:</strong> edit <code>defaults.abcLabels</code> in the JavaScript (e.g., ["Low energy", "Medium", "Hyperfocus"]). Keep 3 items!
-    </div>
   </div>
 
-  <!-- extra beneficial: short note / custom text for context -->
+  <!-- extra beneficial: short note for extra context -->
   <div class="card">
     <h2>✍️ extra note (optional)</h2>
     <textarea id="freeNote" rows="2" placeholder="add anything extra, e.g. 'feeling overwhelmed' or 'need hug' ..." style="width:100%; padding:0.8rem; border-radius:24px; border:1px solid #cbdde9; font-family:inherit; resize:vertical;"></textarea>
-    <div class="hint-text">this will be included in the shareable summary 🌟</div>
   </div>
 
   <!-- action row -->
@@ -356,11 +310,21 @@
 </div>
 
 <script>
-  // --------------------------------------------------------------
-  //  CUSTOMIZABLE DATA (ADD / EDIT ACTIVITIES, YES/NO TEXT, ABC LABELS)
-  // --------------------------------------------------------------
-  const defaults = {
-    // ✅ 1. ACTIVITIES: add or remove strings here — they will appear as checkboxes.
+  // ============================================================
+  // **************  EDITABLE SETTINGS (HINTS INSIDE CODE) **************
+  // ============================================================
+  // Look below to easily customize:
+  // 1. ACTIVITIES list  -> add/remove any checkbox options
+  // 2. YES/NO/MAYBE labels -> change button text
+  // 3. A/B/C options -> rename the three choices
+  // ============================================================
+
+  const editableConfig = {
+    // ------------------------------------------------------------------
+    // 📋 ACTIVITIES SECTION: add or remove any string you like.
+    //    Each string becomes a checkbox. Check = I want / positive,
+    //    Uncheck = I don't want / not up for it.
+    // ------------------------------------------------------------------
     activities: [
       "🚶 Go for a walk outside",
       "📺 Watch a show together",
@@ -370,12 +334,33 @@
       "🎮 Play a game (board/video)",
       "🛁 Bath / self-care",
       "📖 Read next to each other"
+      // 👆 ADD NEW ACTIVITIES HERE: just add a new line like:
+      // "🛒 Go grocery shopping",
+      // "🎨 Draw or paint together",
     ],
-    // ✅ 2. YES/NO/MAYBE labels (change if you want different wording)
-    yesNoOptions: ["yes", "no", "maybe"],
-    // ✅ 3. ABC SECTION: exactly 3 items (change text & meaning)
-    abcLabels: ["A · rest & low demand", "B · medium activity", "C · high energy / go out"],
-    // optional extra fallback
+
+    // ------------------------------------------------------------------
+    // 🤍 YES / NO / MAYBE section: change the 3 labels and their emoji.
+    //    Keep exactly 3 items if you change structure, but simple text edits fine.
+    // ------------------------------------------------------------------
+    yesNoButtons: [
+      { value: "yes", display: "✅ YES" },
+      { value: "no", display: "❌ NO" },
+      { value: "maybe", display: "🤔 MAYBE" }
+    ],
+
+    // ------------------------------------------------------------------
+    // 🔘 A/B/C SECTION: change the three options below.
+    //    Each object has a letter (A,B,C) and a description.
+    //    You can change the description text to whatever you need.
+    // ------------------------------------------------------------------
+    abcOptions: [
+      { letter: "A", label: "rest & low demand" },
+      { letter: "B", label: "medium activity" },
+      { letter: "C", label: "high energy / go out" }
+      // 👆 Examples: change to "Do it later", "Do it today", "Do it together"
+      // Or "Low energy", "Moderate", "Hyperfocus". Anything you like.
+    ]
   };
 
   // ---------- STATE ----------
@@ -396,10 +381,10 @@
   const saveBtn = document.getElementById("saveAndShareBtn");
   const resetBtn = document.getElementById("resetBtn");
 
-  // ---------- helper: build activities UI ----------
+  // ---------- helper: build activities UI from editableConfig ----------
   function buildActivitiesUI() {
     activitiesContainer.innerHTML = "";
-    defaults.activities.forEach(activity => {
+    editableConfig.activities.forEach(activity => {
       const isChecked = activitiesState[activity] || false;
       const itemDiv = document.createElement("div");
       itemDiv.className = "check-item";
@@ -408,18 +393,16 @@
       checkBox.checked = isChecked;
       checkBox.addEventListener("change", (e) => {
         activitiesState[activity] = e.target.checked;
-        // after change we don't auto-save until user clicks share
       });
       const label = document.createElement("label");
       label.textContent = activity;
-      label.htmlFor = checkBox.id;
       itemDiv.appendChild(checkBox);
       itemDiv.appendChild(label);
       activitiesContainer.appendChild(itemDiv);
     });
   }
 
-  // update activitiesState from checkboxes (sync after reset or load)
+  // sync activitiesState from current checkboxes (ensures accuracy after reset/load)
   function syncActivitiesFromDOM() {
     const checkboxes = activitiesContainer.querySelectorAll('input[type="checkbox"]');
     const labels = activitiesContainer.querySelectorAll('.check-item label');
@@ -431,47 +414,42 @@
     }
   }
 
-  // build yes/no/maybe UI with selected highlight
+  // build yes/no UI dynamically from editableConfig.yesNoButtons
   function buildYesNoUI() {
-    const btns = yesNoGroup.querySelectorAll('.choice-btn');
-    btns.forEach(btn => {
-      const val = btn.getAttribute('data-value');
-      btn.classList.remove('selected-yes', 'selected-no', 'selected-maybe');
-      if (yesNoSelected === val) {
-        if (val === 'yes') btn.classList.add('selected-yes');
-        else if (val === 'no') btn.classList.add('selected-no');
-        else if (val === 'maybe') btn.classList.add('selected-maybe');
+    yesNoGroup.innerHTML = "";
+    editableConfig.yesNoButtons.forEach(btn => {
+      const btnDiv = document.createElement("div");
+      btnDiv.className = "choice-btn";
+      btnDiv.setAttribute("data-value", btn.value);
+      btnDiv.textContent = btn.display;
+      if (yesNoSelected === btn.value) {
+        if (btn.value === 'yes') btnDiv.classList.add('selected-yes');
+        else if (btn.value === 'no') btnDiv.classList.add('selected-no');
+        else if (btn.value === 'maybe') btnDiv.classList.add('selected-maybe');
       }
-      // attach event if not already (clean way: reattach)
-      btn.removeEventListener('click', yesNoHandler);
-      btn.addEventListener('click', yesNoHandler);
+      btnDiv.addEventListener("click", () => {
+        if (yesNoSelected === btn.value) {
+          yesNoSelected = null;
+        } else {
+          yesNoSelected = btn.value;
+        }
+        buildYesNoUI();
+      });
+      yesNoGroup.appendChild(btnDiv);
     });
   }
 
-  function yesNoHandler(e) {
-    const val = e.currentTarget.getAttribute('data-value');
-    if (yesNoSelected === val) {
-      // optional: unselect? but typical UX leave selected. but we allow unselect? 
-      // but it's nicer to allow maybe clearing: double tap to unset? we implement unset on same:
-      yesNoSelected = null;
-    } else {
-      yesNoSelected = val;
-    }
-    buildYesNoUI();
-  }
-
-  // ABC UI
+  // build A/B/C UI from editableConfig.abcOptions
   function buildAbcUI() {
     abcContainer.innerHTML = "";
-    defaults.abcLabels.forEach((label, idx) => {
+    editableConfig.abcOptions.forEach((opt, idx) => {
       const card = document.createElement("div");
       card.className = "abc-card";
       if (abcSelected === idx) card.classList.add("selected");
-      const letter = idx === 0 ? "A" : idx === 1 ? "B" : "C";
-      card.innerHTML = `<span>${letter}</span> ${label}`;
+      card.innerHTML = `<span>${opt.letter}</span> ${opt.label}`;
       card.addEventListener("click", () => {
         if (abcSelected === idx) {
-          abcSelected = null;   // allow deselection
+          abcSelected = null;
         } else {
           abcSelected = idx;
         }
@@ -481,25 +459,25 @@
     });
   }
 
-  // collect all current state into an object
+  // collect all current selections into a state object
   function getCurrentState() {
-    syncActivitiesFromDOM();        // ensure latest check status
+    syncActivitiesFromDOM();
     const freeText = freeNoteElem.value;
     return {
       activities: { ...activitiesState },
       yesNo: yesNoSelected,
       abcIndex: abcSelected,
-      abcLabels: defaults.abcLabels,   // store labels so that if changed in future, old links still consistent? we store labels for decoding.
+      abcLabels: editableConfig.abcOptions.map(opt => ({ letter: opt.letter, label: opt.label })),
       note: freeText,
-      version: 1
+      version: 2
     };
   }
 
-  // load state from object (restore)
+  // load state into UI (used when restoring from link)
   function loadStateIntoUI(state) {
     // activities
     if (state.activities && typeof state.activities === 'object') {
-      defaults.activities.forEach(act => {
+      editableConfig.activities.forEach(act => {
         if (state.activities.hasOwnProperty(act)) {
           activitiesState[act] = !!state.activities[act];
         } else {
@@ -507,17 +485,20 @@
         }
       });
     } else {
-      // reset all false
-      defaults.activities.forEach(act => { activitiesState[act] = false; });
+      editableConfig.activities.forEach(act => { activitiesState[act] = false; });
     }
-    buildActivitiesUI();  // refresh checkboxes to reflect loaded state
+    buildActivitiesUI();
 
     // yes/no
-    yesNoSelected = (state.yesNo && ["yes","no","maybe"].includes(state.yesNo)) ? state.yesNo : null;
+    if (state.yesNo && editableConfig.yesNoButtons.some(b => b.value === state.yesNo)) {
+      yesNoSelected = state.yesNo;
+    } else {
+      yesNoSelected = null;
+    }
     buildYesNoUI();
 
-    // abc
-    if (typeof state.abcIndex === 'number' && state.abcIndex >=0 && state.abcIndex < 3) {
+    // abc: restore based on index, but ensure abcOptions length
+    if (typeof state.abcIndex === 'number' && state.abcIndex >= 0 && state.abcIndex < editableConfig.abcOptions.length) {
       abcSelected = state.abcIndex;
     } else {
       abcSelected = null;
@@ -528,42 +509,33 @@
     freeNoteElem.value = state.note || "";
   }
 
-  // generate full shareable text & encode into URL (hash fragment)
+  // generate shareable link containing full state
   function generateShareableLink() {
     const current = getCurrentState();
-    // stringify JSON + compress somewhat (no compression but fine)
     const jsonStr = JSON.stringify(current);
-    // encode base64 to make URL safe (but not too long, readable enough)
-    // we use btoa (base64) but ensure unicode? JSON ascii fine.
     let encoded;
     try {
       encoded = btoa(encodeURIComponent(jsonStr));
     } catch(e) {
       encoded = btoa(jsonStr);
     }
-    // build current URL without hash
     const baseUrl = window.location.href.split('#')[0];
     const fullUrl = `${baseUrl}#data=${encoded}`;
     return { fullUrl, state: current };
   }
 
-  // decode from URL hash on page load
+  // restore from URL hash on page load
   function restoreFromUrlIfPresent() {
     const hash = window.location.hash;
     if (hash && hash.startsWith('#data=')) {
-      const encoded = hash.substring(6); // after '#data='
+      const encoded = hash.substring(6);
       try {
         let decodedStr = decodeURIComponent(atob(encoded));
         const state = JSON.parse(decodedStr);
-        // basic validation: version or activities exist
         if (state && (state.activities || state.yesNo !== undefined)) {
           loadStateIntoUI(state);
-          // also update note
-          if (state.note !== undefined) freeNoteElem.value = state.note;
-          // small feedback message in share area if needed
           shareAreaDiv.style.display = 'block';
-          const fakeLink = window.location.href;
-          shareLinkSpan.innerText = fakeLink;
+          shareLinkSpan.innerText = window.location.href;
           return true;
         }
       } catch(e) { console.warn("restore failed", e); }
@@ -571,10 +543,9 @@
     return false;
   }
 
-  // reset everything
+  // reset everything to empty/unchecked
   function resetAllSelections() {
-    // clear activities
-    defaults.activities.forEach(act => { activitiesState[act] = false; });
+    editableConfig.activities.forEach(act => { activitiesState[act] = false; });
     buildActivitiesUI();
     yesNoSelected = null;
     buildYesNoUI();
@@ -583,28 +554,23 @@
     freeNoteElem.value = "";
     shareAreaDiv.style.display = "none";
     copyFeedbackSpan.innerText = "";
-    // optional: clear url hash without reload
     if (window.history && window.history.replaceState) {
       window.history.replaceState(null, '', window.location.pathname);
     }
   }
 
-  // main save & create link function
+  // save current selections, create shareable link, update UI and URL
   function saveAndCreateLink() {
-    // sync any last changes
     syncActivitiesFromDOM();
-    const { fullUrl, state } = generateShareableLink();
+    const { fullUrl } = generateShareableLink();
 
-    // display share area
     shareAreaDiv.style.display = "block";
     shareLinkSpan.innerText = fullUrl;
 
-    // also update browser's URL hash without reload
     if (window.history && window.history.replaceState) {
       window.history.replaceState(null, '', fullUrl);
     }
 
-    // optional flash message
     copyFeedbackSpan.innerText = "✨ Link created! Copy & send to your partner.";
     setTimeout(() => {
       if (copyFeedbackSpan.innerText === "✨ Link created! Copy & send to your partner.") {
@@ -633,39 +599,27 @@
     }
   }
 
-  // initialise state from empty or localstorage? we use URL first, else clean defaults.
+  // initialize the app
   function init() {
-    // set default empty activitiesState
-    defaults.activities.forEach(act => { activitiesState[act] = false; });
+    // initialize activities state with false for all configured activities
+    editableConfig.activities.forEach(act => { activitiesState[act] = false; });
     buildActivitiesUI();
     buildYesNoUI();
     buildAbcUI();
-    // try to restore from URL hash
+    
     const restored = restoreFromUrlIfPresent();
     if (!restored) {
-      // fresh state: nothing selected
-      resetAllSelections();
-    } else {
-      // after restore, sync activitiesState may already set via loadStateIntoUI which called buildActivitiesUI etc.
-      // but double sync note
-      freeNoteElem.value = freeNoteElem.value;
+      resetAllSelections(); // fresh empty state
     }
-    // event listeners
+
     saveBtn.addEventListener("click", saveAndCreateLink);
     resetBtn.addEventListener("click", () => {
       resetAllSelections();
-      // reset share area hide
       shareAreaDiv.style.display = "none";
       copyFeedbackSpan.innerText = "";
-      // optional clear url hash
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState(null, '', window.location.pathname);
-      }
     });
     copyBtn.addEventListener("click", copyLinkToClipboard);
-    freeNoteElem.addEventListener("input", () => {
-      // just update internal, no auto share
-    });
+    freeNoteElem.addEventListener("input", () => {});
   }
 
   init();
