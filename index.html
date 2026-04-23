@@ -3,70 +3,129 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Feelings & Needs Board</title>
+  <title>♥️ Our Intimate Playbook ♥️</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
-      font-family: 'Segoe UI', Roboto, sans-serif;
-      padding: 1.5rem 1rem;
-      color: #1e2a32;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    .container { max-width: 800px; margin: 0 auto; }
+    body {
+      background: linear-gradient(135deg, #1e1a2f 0%, #2a1e3c 100%);
+      font-family: 'Segoe UI', 'Quicksand', system-ui, -apple-system, 'Poppins', sans-serif;
+      padding: 1.5rem 1rem;
+      color: #fbe9f0;
+      min-height: 100vh;
+    }
 
-    .header { text-align: center; margin-bottom: 2rem; }
-    .header h1 { font-size: 2rem; color: #2c3e66; }
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
 
+    /* sexy pulse animation for header */
+    @keyframes softGlow {
+      0% { text-shadow: 0 0 0px rgba(255, 105, 180, 0.2), 0 0 0px rgba(255, 140, 200, 0.1); }
+      100% { text-shadow: 0 0 12px rgba(255, 80, 150, 0.6), 0 0 18px rgba(255, 120, 180, 0.4); }
+    }
+
+    @keyframes floatHeart {
+      0% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+      50% { transform: translateY(-8px) rotate(3deg); opacity: 1; }
+      100% { transform: translateY(0px) rotate(0deg); opacity: 0.6; }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2.2rem;
+      position: relative;
+    }
+    .header h1 {
+      font-size: 2.4rem;
+      background: linear-gradient(120deg, #ffb7c5, #ff85b3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+      animation: softGlow 1.8s infinite alternate;
+      display: inline-block;
+    }
+    .header p {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #e7b9d4;
+      margin-top: 6px;
+      letter-spacing: 0.5px;
+    }
+
+    /* card with glassmorphism + subtle hover */
     .card {
-      background: white;
+      background: rgba(35, 30, 48, 0.75);
+      backdrop-filter: blur(6px);
       border-radius: 2rem;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 200, 220, 0.15);
       padding: 1.5rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1.6rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 24px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 140, 180, 0.4);
     }
 
     .card h2 {
-      font-size: 1.3rem;
-      border-left: 5px solid #3b8b6e;
-      padding-left: 0.8rem;
-      margin-bottom: 1.2rem;
+      font-size: 1.4rem;
+      font-weight: 600;
+      border-left: 4px solid #ff8cb0;
+      padding-left: 0.9rem;
+      margin-bottom: 1.3rem;
+      color: #ffe2f0;
+      letter-spacing: -0.2px;
     }
 
-    /* --- FORCE SIDE BY SIDE --- */
+    /* SEXY CHECKLIST GRID */
     .checklist-grid {
       display: flex;
-      gap: 15px;
+      gap: 18px;
       align-items: flex-start;
+      flex-wrap: wrap;
     }
-
     .checklist-column {
-      flex: 1; /* Makes both columns equal width */
+      flex: 1;
+      min-width: 170px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
 
+    /* animated checkbox items */
     .check-item {
       display: flex;
       align-items: center;
-      gap: 10px;
-      background: #f8fafc;
-      padding: 8px 12px;
-      border-radius: 50px;
-      border: 1px solid #e2edf2;
-      min-height: 45px;
+      gap: 12px;
+      background: rgba(45, 38, 58, 0.7);
+      padding: 8px 15px;
+      border-radius: 60px;
+      border: 1px solid rgba(255, 140, 170, 0.3);
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      cursor: pointer;
+    }
+    .check-item:hover {
+      background: rgba(70, 55, 90, 0.9);
+      border-color: #ff9cbb;
+      transform: scale(1.01);
+      box-shadow: 0 4px 12px rgba(255, 100, 150, 0.2);
     }
 
-    /* Column 1: Checkbox on Left (Default) */
     .left-col .check-item {
       flex-direction: row;
     }
-
-    /* Column 2: Checkbox on Right */
     .right-col .check-item {
       flex-direction: row-reverse;
+      justify-content: space-between;
+    }
+    .right-col .check-item label {
       text-align: right;
     }
 
@@ -74,51 +133,215 @@
       flex: 1;
       cursor: pointer;
       font-weight: 500;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
     }
 
+    /* custom sexy checkbox styling */
     input[type="checkbox"] {
-      width: 1.3rem;
-      height: 1.3rem;
-      accent-color: #2c8f6e;
+      width: 1.35rem;
+      height: 1.35rem;
+      accent-color: #ff6699;
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    input[type="checkbox"]:active {
+      transform: scale(0.9);
     }
 
-    /* Rest of Styling */
-    .choice-group { display: flex; gap: 10px; margin-top: 10px; }
+    /* feeling buttons - spicy & kinky style */
+    .choice-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
     .choice-btn {
-      flex: 1; text-align: center; background: #f1f5f9;
-      padding: 12px; border-radius: 50px; cursor: pointer; font-weight: 600;
+      flex: 1;
+      text-align: center;
+      background: rgba(30, 24, 42, 0.9);
+      padding: 12px 8px;
+      border-radius: 80px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: all 0.2s;
+      border: 1px solid rgba(255, 130, 170, 0.4);
+      letter-spacing: 0.5px;
+      font-size: 1rem;
     }
-    .selected-yes { background: #2b8c5e; color: white; }
-    .selected-no { background: #bc6c4b; color: white; }
-    .selected-maybe { background: #e6b12e; color: black; }
+    .choice-btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.05);
+    }
+    .selected-yes {
+      background: linear-gradient(135deg, #c44b6e, #9f3f5c);
+      color: white;
+      box-shadow: 0 6px 14px rgba(196, 75, 110, 0.4);
+      border-color: #ffb7ca;
+    }
+    .selected-no {
+      background: linear-gradient(135deg, #aa6f4e, #8c543a);
+      color: #fef0e6;
+      box-shadow: 0 6px 14px rgba(170, 111, 78, 0.3);
+    }
+    .selected-maybe {
+      background: linear-gradient(135deg, #cf9f2e, #b87e24);
+      color: #2c1e0a;
+      box-shadow: 0 6px 14px rgba(207, 159, 46, 0.4);
+    }
 
-    .abc-options { display: flex; gap: 10px; margin-top: 10px; }
+    /* who's getting involved cards */
+    .abc-options {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+      flex-wrap: wrap;
+    }
     .abc-card {
-      flex: 1; text-align: center; padding: 15px;
-      background: #f8fafc; border-radius: 1rem; cursor: pointer; border: 1px solid #dce5ec;
+      flex: 1;
+      text-align: center;
+      padding: 14px 8px;
+      background: rgba(40, 33, 53, 0.8);
+      border-radius: 1.2rem;
+      cursor: pointer;
+      border: 1px solid rgba(255, 150, 180, 0.4);
+      transition: all 0.2s ease;
+      font-weight: 600;
+      backdrop-filter: blur(2px);
     }
-    .abc-card.selected { background: #2e5f7a; color: white; }
+    .abc-card:hover {
+      background: rgba(80, 60, 105, 0.9);
+      transform: scale(0.98);
+      border-color: #ff99bb;
+    }
+    .abc-card.selected {
+      background: radial-gradient(circle at 30% 10%, #e06c8a, #b43b62);
+      color: white;
+      box-shadow: 0 8px 18px rgba(180, 59, 98, 0.5);
+      border: 1px solid #ffc0d0;
+    }
 
-    .action-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
-    button {
-      padding: 12px 24px; border-radius: 50px; border: none;
-      background: #2d5f7e; color: white; font-weight: 600; cursor: pointer;
+    /* textarea with seductive glow */
+    textarea {
+      width: 100%;
+      padding: 14px;
+      border-radius: 24px;
+      background: #2c243b;
+      border: 1px solid #ff99bb;
+      color: #ffe6f0;
+      font-family: inherit;
+      font-size: 0.95rem;
+      resize: vertical;
+      transition: all 0.2s;
     }
-    .share-area { background: #fff; padding: 15px; border-radius: 1rem; margin-top: 20px; border: 1px solid #caddf0; }
-    .share-link { font-family: monospace; font-size: 0.8rem; word-break: break-all; background: #eee; padding: 10px; display: block; margin: 10px 0; }
+    textarea:focus {
+      outline: none;
+      border-color: #ff66a0;
+      box-shadow: 0 0 0 3px rgba(255, 100, 150, 0.3);
+    }
+
+    /* action buttons - animated sexy bounce */
+    .action-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    button {
+      padding: 12px 28px;
+      border-radius: 60px;
+      border: none;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      background: linear-gradient(95deg, #e26b8a, #c04a6e);
+      color: white;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+      letter-spacing: 0.3px;
+    }
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+      background: linear-gradient(95deg, #ff7a9e, #da4b76);
+      box-shadow: 0 12px 22px rgba(218, 75, 118, 0.3);
+    }
+    button:active {
+      transform: translateY(2px);
+    }
+
+    /* share area glowing */
+    .share-area {
+      background: rgba(30, 24, 44, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 18px;
+      border-radius: 1.5rem;
+      margin-top: 22px;
+      border: 1px solid #ff99bb;
+      animation: fadeSlideUp 0.4s ease;
+    }
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .share-link {
+      font-family: monospace;
+      font-size: 0.8rem;
+      word-break: break-all;
+      background: #1d1729;
+      padding: 12px;
+      display: block;
+      margin: 12px 0;
+      border-radius: 24px;
+      color: #ffc0dd;
+      border: 1px solid #d96e92;
+    }
+    #copyBtn {
+      background: #a54d6b;
+      padding: 8px 20px;
+      font-size: 0.9rem;
+    }
+    /* floating kiss emoji decoration */
+    .flirt-emoji {
+      display: inline-block;
+      animation: floatHeart 2s infinite ease-in-out;
+      margin-left: 6px;
+    }
+
+    /* responsive */
+    @media (max-width: 600px) {
+      .checklist-grid {
+        flex-direction: column;
+      }
+      .right-col .check-item {
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+      .right-col .check-item label {
+        text-align: left;
+      }
+      .right-col .check-item {
+        flex-direction: row;
+      }
+      .choice-btn {
+        font-size: 0.85rem;
+      }
+      .card h2 {
+        font-size: 1.2rem;
+      }
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
   <div class="header">
-    <h1>🌱 voice board</h1>
-    <p>check what I feel like doing</p>
+    <h1>🔥 spill the tea... & more 🔥 <span class="flirt-emoji">💋</span></h1>
+    <p>💕 check what i crave — whisper your mood, let's play 💕</p>
   </div>
 
   <div class="card">
-    <h2>📋 activities I'd like to do</h2>
+    <h2>🍑 tonight’s menu / spicy wishes</h2>
     <div class="checklist-grid">
       <div class="checklist-column left-col" id="listLeft"></div>
       <div class="checklist-column right-col" id="listRight"></div>
@@ -126,52 +349,66 @@
   </div>
 
   <div class="card">
-    <h2>🤍 general feeling</h2>
+    <h2>💋 general vibe <span style="font-size:0.9rem;">(be honest baby)</span></h2>
     <div class="choice-group" id="yesNoGroup"></div>
   </div>
 
   <div class="card">
-    <h2>🔘 Who's Getting Involved</h2>
+    <h2>🖤 who's getting involved?</h2>
     <div class="abc-options" id="abcGroup"></div>
   </div>
 
   <div class="card">
-    <textarea id="freeNote" placeholder="Extra notes..." style="width:100%; padding:10px; border-radius:15px;"></textarea>
+    <h2>✍️ whisper a secret note...</h2>
+    <textarea id="freeNote" rows="2" placeholder="tell me what you'd love... fantasies, soft words, or a teasing command 😈"></textarea>
   </div>
 
   <div class="action-buttons">
-    <button id="saveBtn">🔗 SAVE & CREATE LINK</button>
-    <button onclick="location.reload()" style="background:#517a8b">⟳ RESET</button>
+    <button id="saveBtn">🔗✨ SAVE & SPICE LINK ✨🔗</button>
+    <button id="resetBtn" style="background:#6f4f6e;">⟳ FRESH START</button>
   </div>
 
   <div class="share-area" id="shareArea" style="display:none">
-    <strong>Share this link:</strong>
+    <strong>💖 our secret love link 💖</strong>
     <span class="share-link" id="linkPath"></span>
-    <button id="copyBtn" style="background:#458466">📋 COPY LINK</button>
+    <button id="copyBtn">📋 COPY & SEND TO ME 💌</button>
   </div>
 </div>
 
 <script>
+  // ---- SPICY CONFIG ----
   const config = {
-    activities: ["👅 Lick", "🫗 Swallow", "💦 Spit", "🎮 Play", "🍽️ Eat", "👗 Wear", "💾 Save", "📤 Share", "🫣 Humiliation"],
-    yesNo: [{v:"yes", t:"✅ YES"}, {v:"no", t:"❌ NO"}, {v:"maybe", t:"🤔 MAYBE"}],
-    abc: [{i:"👩‍❤️‍👨", l:"Both"}, {i:"🧛", l:"Just Me"}, {i:"🧕", l:"Just You"}]
+    activities: ["👅 Lick & tease", "💦 Swallow", "💋 Spit / kiss", "🎮 Playful dom", "🍽️ Eat me out", "👗 Wear (yours)", "💾 Save memory", "📤 Share fantasy", "🫣 Humiliation (soft)"],
+    yesNo: [{v:"yes", t:"🔥 YES please"}, {v:"no", t:"❄️ not tonight"}, {v:"maybe", t:"😏 maybe... tempt me"}],
+    abc: [{i:"👩‍❤️‍👨", l:"Both of us"}, {i:"🧛‍♀️", l:"Just Me (selfish)"}, {i:"🧕", l:"Just You (all you)"}]
   };
 
   let state = { acts: {}, yn: null, abc: null };
 
-  function render() {
-    const left = document.getElementById('listLeft');
-    const right = document.getElementById('listRight');
-    left.innerHTML = ''; right.innerHTML = '';
+  // Helper to store state
+  function persistState() {
+    // nothing extra, just object updated
+  }
 
-    config.activities.forEach((act, i) => {
+  function render() {
+    const leftCol = document.getElementById('listLeft');
+    const rightCol = document.getElementById('listRight');
+    leftCol.innerHTML = '';
+    rightCol.innerHTML = '';
+
+    // split activities into two columns (first 5 left, rest right) for better balance
+    const middle = Math.ceil(config.activities.length / 2);
+    config.activities.forEach((act, idx) => {
       const div = document.createElement('div');
       div.className = 'check-item';
+      
       const cb = document.createElement('input');
       cb.type = 'checkbox';
       cb.checked = state.acts[act] || false;
-      cb.onchange = () => state.acts[act] = cb.checked;
+      cb.addEventListener('change', (e) => {
+        state.acts[act] = cb.checked;
+        // tiny sexy haptic? not needed, just update state
+      });
       
       const lbl = document.createElement('label');
       lbl.textContent = act;
@@ -179,55 +416,296 @@
       div.appendChild(cb);
       div.appendChild(lbl);
       
-      // Put in left column first, then right column
-      if (i < 5) { left.appendChild(div); } 
-      else { right.appendChild(div); }
+      // add a little ripple effect on click
+      div.addEventListener('click', (e) => {
+        if (e.target !== cb) {
+          cb.checked = !cb.checked;
+          state.acts[act] = cb.checked;
+          // simulate sexy micro animation
+          div.style.transform = 'scale(0.99)';
+          setTimeout(() => div.style.transform = '', 120);
+        }
+      });
+      
+      if (idx < middle) leftCol.appendChild(div);
+      else rightCol.appendChild(div);
     });
 
-    const ynBox = document.getElementById('yesNoGroup');
-    ynBox.innerHTML = '';
+    // render feeling buttons (yes/no/maybe with sass)
+    const ynContainer = document.getElementById('yesNoGroup');
+    ynContainer.innerHTML = '';
     config.yesNo.forEach(opt => {
       const btn = document.createElement('div');
-      btn.className = 'choice-btn' + (state.yn === opt.v ? ' selected-' + opt.v : '');
+      btn.className = 'choice-btn';
+      if (state.yn === opt.v) btn.classList.add(`selected-${opt.v}`);
       btn.textContent = opt.t;
-      btn.onclick = () => { state.yn = opt.v; render(); };
-      ynBox.appendChild(btn);
+      btn.addEventListener('click', () => {
+        state.yn = opt.v;
+        render();
+        // flirt feedback
+        triggerFlirtyFeedback(opt.v);
+      });
+      ynContainer.appendChild(btn);
     });
 
-    const abcBox = document.getElementById('abcGroup');
-    abcBox.innerHTML = '';
+    // abc cards (who's getting involved)
+    const abcContainer = document.getElementById('abcGroup');
+    abcContainer.innerHTML = '';
     config.abc.forEach((opt, idx) => {
-      const card = document.createElement('div');
-      card.className = 'abc-card' + (state.abc === idx ? ' selected' : '');
-      card.innerHTML = `<div>${opt.i}</div><div style="font-size:0.8rem">${opt.l}</div>`;
-      card.onclick = () => { state.abc = idx; render(); };
-      abcBox.appendChild(card);
+      const cardDiv = document.createElement('div');
+      cardDiv.className = 'abc-card';
+      if (state.abc === idx) cardDiv.classList.add('selected');
+      cardDiv.innerHTML = `<div style="font-size:1.6rem;">${opt.i}</div><div style="font-size:0.85rem; margin-top:6px;">${opt.l}</div>`;
+      cardDiv.addEventListener('click', () => {
+        state.abc = idx;
+        render();
+        // little kiss effect
+        showFloatingKiss(cardDiv);
+      });
+      abcContainer.appendChild(cardDiv);
     });
   }
 
-  document.getElementById('saveBtn').onclick = () => {
-    const data = btoa(encodeURIComponent(JSON.stringify({...state, note: document.getElementById('freeNote').value})));
-    const url = window.location.href.split('#')[0] + '#data=' + data;
-    document.getElementById('shareArea').style.display = 'block';
-    document.getElementById('linkPath').textContent = url;
-  };
-
-  document.getElementById('copyBtn').onclick = () => {
-    navigator.clipboard.writeText(document.getElementById('linkPath').textContent);
-    alert("Copied!");
-  };
-
-  // Load from URL if data exists
-  const hash = window.location.hash;
-  if (hash.includes('data=')) {
-    try {
-      const saved = JSON.parse(decodeURIComponent(atob(hash.split('data=')[1])));
-      state = saved;
-      document.getElementById('freeNote').value = saved.note || '';
-    } catch(e) {}
+  // tiny tease effect
+  function triggerFlirtyFeedback(choice) {
+    const msg = document.createElement('div');
+    if (choice === 'yes') msg.innerText = '😈 good girl/boy... i like that energy 😈';
+    else if (choice === 'no') msg.innerText = '🥺 respectful... maybe i can change your mind? 🥺';
+    else msg.innerText = '😏 hmm maybe... let’s explore the tension, baby 😏';
+    msg.style.position = 'fixed';
+    msg.style.bottom = '20px';
+    msg.style.left = '50%';
+    msg.style.transform = 'translateX(-50%)';
+    msg.style.backgroundColor = '#c4456e';
+    msg.style.color = 'white';
+    msg.style.padding = '8px 20px';
+    msg.style.borderRadius = '40px';
+    msg.style.fontWeight = 'bold';
+    msg.style.zIndex = '1000';
+    msg.style.backdropFilter = 'blur(12px)';
+    msg.style.fontSize = '0.9rem';
+    msg.style.boxShadow = '0 6px 20px rgba(0,0,0,0.2)';
+    msg.style.border = '1px solid #ffb0ca';
+    document.body.appendChild(msg);
+    setTimeout(() => msg.remove(), 1800);
   }
 
+  function showFloatingKiss(element) {
+    const rect = element.getBoundingClientRect();
+    const kissSpan = document.createElement('div');
+    kissSpan.innerHTML = '💋✨';
+    kissSpan.style.position = 'fixed';
+    kissSpan.style.left = rect.left + rect.width/2 - 15 + 'px';
+    kissSpan.style.top = rect.top - 20 + 'px';
+    kissSpan.style.fontSize = '28px';
+    kissSpan.style.pointerEvents = 'none';
+    kissSpan.style.opacity = '0.9';
+    kissSpan.style.transition = 'transform 0.3s ease, opacity 0.4s';
+    kissSpan.style.transform = 'scale(0.5)';
+    document.body.appendChild(kissSpan);
+    requestAnimationFrame(() => {
+      kissSpan.style.transform = 'scale(1.2) translateY(-20px)';
+      kissSpan.style.opacity = '0';
+    });
+    setTimeout(() => kissSpan.remove(), 400);
+  }
+
+  // Save with sexy notification & share link
+  document.getElementById('saveBtn').onclick = () => {
+    const noteVal = document.getElementById('freeNote').value;
+    const fullState = {
+      acts: state.acts,
+      yn: state.yn,
+      abc: state.abc,
+      note: noteVal
+    };
+    const jsonStr = JSON.stringify(fullState);
+    const encoded = btoa(encodeURIComponent(jsonStr));
+    const url = window.location.href.split('#')[0] + '#data=' + encoded;
+    const shareDiv = document.getElementById('shareArea');
+    shareDiv.style.display = 'block';
+    document.getElementById('linkPath').textContent = url;
+    // playful message
+    const tempMsg = document.createElement('div');
+    tempMsg.innerText = '💞 spicy link ready! send this to me, my love 💞';
+    tempMsg.style.backgroundColor = '#b34266';
+    tempMsg.style.position = 'fixed';
+    tempMsg.style.bottom = '30px';
+    tempMsg.style.left = '20px';
+    tempMsg.style.right = '20px';
+    tempMsg.style.textAlign = 'center';
+    tempMsg.style.padding = '10px';
+    tempMsg.style.borderRadius = '60px';
+    tempMsg.style.fontWeight = 'bold';
+    tempMsg.style.zIndex = '999';
+    document.body.appendChild(tempMsg);
+    setTimeout(() => tempMsg.remove(), 2200);
+    // add smooth scroll to share area
+    shareDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  document.getElementById('copyBtn')?.addEventListener('click', () => {
+    const linkText = document.getElementById('linkPath').textContent;
+    navigator.clipboard.writeText(linkText).then(() => {
+      const copyNotif = document.createElement('div');
+      copyNotif.innerText = '💌 link copied! now go send her some love 💌';
+      copyNotif.style.position = 'fixed';
+      copyNotif.style.bottom = '20px';
+      copyNotif.style.left = '20px';
+      copyNotif.style.right = '20px';
+      copyNotif.style.background = '#96567e';
+      copyNotif.style.color = 'white';
+      copyNotif.style.padding = '10px';
+      copyNotif.style.borderRadius = '60px';
+      copyNotif.style.textAlign = 'center';
+      copyNotif.style.fontWeight = 'bold';
+      document.body.appendChild(copyNotif);
+      setTimeout(() => copyNotif.remove(), 1800);
+    }).catch(() => alert('copy manually, darling 💋'));
+  });
+
+  // reset button with sassy confirmation
+  const resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      if (confirm('✨ reset all desires? we can start fresh, babe ✨')) {
+        state = { acts: {}, yn: null, abc: null };
+        document.getElementById('freeNote').value = '';
+        render();
+        const shareDiv = document.getElementById('shareArea');
+        if (shareDiv) shareDiv.style.display = 'none';
+        // show a teasing reset message
+        const resetMsg = document.createElement('div');
+        resetMsg.innerText = '🔄 wiped clean... let’s fill with new fantasies 🔄';
+        resetMsg.style.backgroundColor = '#8860a3';
+        resetMsg.style.position = 'fixed';
+        resetMsg.style.bottom = '20px';
+        resetMsg.style.left = '20px';
+        resetMsg.style.right = '20px';
+        resetMsg.style.borderRadius = '40px';
+        resetMsg.style.padding = '10px';
+        resetMsg.style.textAlign = 'center';
+        resetMsg.style.fontWeight = 'bold';
+        document.body.appendChild(resetMsg);
+        setTimeout(() => resetMsg.remove(), 1500);
+      }
+    };
+  }
+
+  // Load from URL hash (#data=...)
+  function loadFromHash() {
+    const hashRaw = window.location.hash;
+    if (hashRaw && hashRaw.includes('data=')) {
+      try {
+        const encodedPart = hashRaw.split('data=')[1];
+        const decoded = decodeURIComponent(atob(encodedPart));
+        const savedData = JSON.parse(decoded);
+        if (savedData.acts) state.acts = savedData.acts;
+        if (savedData.yn !== undefined) state.yn = savedData.yn;
+        if (savedData.abc !== undefined) state.abc = savedData.abc;
+        if (savedData.note) document.getElementById('freeNote').value = savedData.note;
+        render();
+        // show a little wink after loading
+        setTimeout(() => {
+          const loadedMsg = document.createElement('div');
+          loadedMsg.innerHTML = '💕 loaded your mood... let’s get intimate, baby 💕';
+          loadedMsg.style.position = 'fixed';
+          loadedMsg.style.bottom = '25px';
+          loadedMsg.style.left = '20px';
+          loadedMsg.style.right = '20px';
+          loadedMsg.style.backgroundColor = '#ad5880';
+          loadedMsg.style.borderRadius = '50px';
+          loadedMsg.style.padding = '10px';
+          loadedMsg.style.textAlign = 'center';
+          loadedMsg.style.fontWeight = 'bold';
+          document.body.appendChild(loadedMsg);
+          setTimeout(() => loadedMsg.remove(), 2200);
+        }, 100);
+      } catch(e) {
+        console.warn('failed to parse saved data', e);
+      }
+    }
+  }
+
+  // sexy floating hearts after load, also on activity toggle
+  function addAmbientLove() {
+    const interval = setInterval(() => {
+      if (document.hidden) return;
+      const heart = document.createElement('div');
+      heart.innerHTML = '❤️‍🔥';
+      heart.style.position = 'fixed';
+      heart.style.bottom = '0px';
+      heart.style.right = Math.random() * window.innerWidth + 'px';
+      heart.style.fontSize = '16px';
+      heart.style.opacity = '0.6';
+      heart.style.pointerEvents = 'none';
+      heart.style.transition = 'all 3s ease-out';
+      heart.style.zIndex = '9999';
+      document.body.appendChild(heart);
+      setTimeout(() => {
+        heart.style.transform = 'translateY(-80px)';
+        heart.style.opacity = '0';
+      }, 50);
+      setTimeout(() => heart.remove(), 3000);
+    }, 4000);
+    window.addEventListener('beforeunload', () => clearInterval(interval));
+  }
+  
+  // also listen for checkbox changes to show micro flirt
+  function addDropFlirtListeners() {
+    // we'll use event delegation on container fresh
+    document.body.addEventListener('change', (e) => {
+      if (e.target && e.target.type === 'checkbox') {
+        const labelNear = e.target.closest('.check-item')?.querySelector('label')?.innerText;
+        if (labelNear && e.target.checked) {
+          const flirtyMsg = document.createElement('div');
+          flirtyMsg.innerText = `💢 ${labelNear} — oh, i love that 💢`;
+          flirtyMsg.style.position = 'fixed';
+          flirtyMsg.style.bottom = '12px';
+          flirtyMsg.style.left = '12px';
+          flirtyMsg.style.background = '#b23b66';
+          flirtyMsg.style.fontSize = '0.8rem';
+          flirtyMsg.style.padding = '6px 14px';
+          flirtyMsg.style.borderRadius = '30px';
+          flirtyMsg.style.color = 'white';
+          flirtyMsg.style.fontWeight = 'bold';
+          flirtyMsg.style.zIndex = '10000';
+          document.body.appendChild(flirtyMsg);
+          setTimeout(() => flirtyMsg.remove(), 1300);
+        } else if (labelNear && !e.target.checked) {
+          // soft uncheck
+          const uncheckMsg = document.createElement('div');
+          uncheckMsg.innerText = `😶‍🌫️ maybe next time... ${labelNear} 😶‍🌫️`;
+          uncheckMsg.style.position = 'fixed';
+          uncheckMsg.style.bottom = '12px';
+          uncheckMsg.style.left = '12px';
+          uncheckMsg.style.background = '#6e4f6b';
+          uncheckMsg.style.padding = '5px 14px';
+          uncheckMsg.style.borderRadius = '30px';
+          uncheckMsg.style.fontSize = '0.8rem';
+          uncheckMsg.style.color = '#ffeef4';
+          document.body.appendChild(uncheckMsg);
+          setTimeout(() => uncheckMsg.remove(), 1200);
+        }
+      }
+    });
+  }
+
+  // initial render & extras
   render();
+  loadFromHash();
+  addAmbientLove();
+  addDropFlirtListeners();
+  
+  // smooth interaction for abc columns and yesno
+  const style = document.createElement('style');
+  style.textContent = `
+    ::selection { background: #ff9bbe; color: #201a2c; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #2c233a; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #d96e92; border-radius: 10px; }
+  `;
+  document.head.appendChild(style);
 </script>
 </body>
 </html>
