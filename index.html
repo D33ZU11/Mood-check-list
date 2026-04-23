@@ -3,274 +3,110 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Feelings & Needs Board · share with partner</title>
+  <title>Feelings & Needs Board</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: linear-gradient(145deg, #f6f9fc 0%, #eef2f5 100%);
-      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      padding: 1.5rem 1rem 3rem;
+      font-family: 'Segoe UI', Roboto, sans-serif;
+      padding: 1.5rem 1rem;
       color: #1e2a32;
     }
 
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
+    .container { max-width: 800px; margin: 0 auto; }
 
-    .header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .header h1 {
-      font-size: 2rem;
-      background: linear-gradient(135deg, #2c3e66, #1b4d3b);
-      background-clip: text;
-      -webkit-background-clip: text;
-      color: transparent;
-      letter-spacing: -0.3px;
-    }
-
-    .header p {
-      color: #4a627a;
-      margin-top: 0.4rem;
-      font-weight: 500;
-    }
+    .header { text-align: center; margin-bottom: 2rem; }
+    .header h1 { font-size: 2rem; color: #2c3e66; }
 
     .card {
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(0px);
+      background: white;
       border-radius: 2rem;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
-      padding: 1.5rem 1.4rem;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      padding: 1.5rem;
       margin-bottom: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.6);
     }
 
     .card h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.3rem;
       border-left: 5px solid #3b8b6e;
       padding-left: 0.8rem;
       margin-bottom: 1.2rem;
-      color: #1e3a3a;
     }
 
-    /* --- TWO COLUMN LAYOUT --- */
+    /* --- FORCE SIDE BY SIDE --- */
     .checklist-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
     }
 
-    .checklist {
+    .checklist-column {
+      flex: 1; /* Makes both columns equal width */
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 10px;
     }
 
     .check-item {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      background: #ffffffd9;
-      padding: 0.5rem 1rem;
-      border-radius: 60px;
+      gap: 10px;
+      background: #f8fafc;
+      padding: 8px 12px;
+      border-radius: 50px;
       border: 1px solid #e2edf2;
+      min-height: 45px;
     }
 
-    /* Standard: Checkbox on Left */
-    .check-item.left-align {
+    /* Column 1: Checkbox on Left (Default) */
+    .left-col .check-item {
       flex-direction: row;
     }
 
-    /* Right Side: Checkbox on Right */
-    .check-item.right-align {
+    /* Column 2: Checkbox on Right */
+    .right-col .check-item {
       flex-direction: row-reverse;
       text-align: right;
     }
 
     .check-item label {
-      font-size: 1.05rem;
-      font-weight: 500;
       flex: 1;
       cursor: pointer;
-      color: #1f3b3a;
+      font-weight: 500;
+      font-size: 0.95rem;
     }
 
     input[type="checkbox"] {
-      width: 1.4rem;
-      height: 1.4rem;
+      width: 1.3rem;
+      height: 1.3rem;
       accent-color: #2c8f6e;
-      cursor: pointer;
     }
 
-    .choice-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 0.5rem 0 0.5rem 0;
-    }
-
+    /* Rest of Styling */
+    .choice-group { display: flex; gap: 10px; margin-top: 10px; }
     .choice-btn {
-      flex: 1;
-      text-align: center;
-      background: #f1f5f9;
-      padding: 0.7rem 0;
-      border-radius: 60px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-      border: 1px solid #cbdde9;
-      color: #2c4c5c;
+      flex: 1; text-align: center; background: #f1f5f9;
+      padding: 12px; border-radius: 50px; cursor: pointer; font-weight: 600;
     }
+    .selected-yes { background: #2b8c5e; color: white; }
+    .selected-no { background: #bc6c4b; color: white; }
+    .selected-maybe { background: #e6b12e; color: black; }
 
-    .choice-btn.selected-yes {
-      background: #2b8c5e;
-      border-color: #1d6a48;
-      color: white;
-      box-shadow: 0 2px 8px rgba(43, 140, 94, 0.3);
-    }
-
-    .choice-btn.selected-no {
-      background: #bc6c4b;
-      border-color: #9e4e2e;
-      color: white;
-    }
-
-    .choice-btn.selected-maybe {
-      background: #e6b12e;
-      border-color: #c7971f;
-      color: #2c2b1f;
-    }
-
-    .abc-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 0.3rem;
-    }
-
+    .abc-options { display: flex; gap: 10px; margin-top: 10px; }
     .abc-card {
-      background: #f8fafc;
-      flex: 1;
-      text-align: center;
-      padding: 0.8rem 0.2rem;
-      border-radius: 1.2rem;
-      border: 1.5px solid #dce5ec;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.1s;
+      flex: 1; text-align: center; padding: 15px;
+      background: #f8fafc; border-radius: 1rem; cursor: pointer; border: 1px solid #dce5ec;
     }
+    .abc-card.selected { background: #2e5f7a; color: white; }
 
-    .abc-card.selected {
-      background: #2e5f7a;
-      border-color: #1a4156;
-      color: white;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
-    }
-
-    .abc-card span:first-child {
-      font-size: 1.2rem;
-      font-weight: 800;
-      margin-right: 6px;
-    }
-
-    .action-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin: 2rem 0 1.5rem;
-      justify-content: center;
-    }
-
+    .action-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
     button {
-      background: #2d5f7e;
-      border: none;
-      padding: 0.8rem 1.8rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border-radius: 60px;
-      color: white;
-      cursor: pointer;
-      transition: 0.1s;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      padding: 12px 24px; border-radius: 50px; border: none;
+      background: #2d5f7e; color: white; font-weight: 600; cursor: pointer;
     }
-
-    button:hover {
-      background: #1f465f;
-      transform: scale(0.98);
-    }
-
-    .btn-secondary {
-      background: #517a8b;
-    }
-
-    .btn-secondary:hover {
-      background: #3b5f6e;
-    }
-
-    .share-area {
-      background: #ffffffcc;
-      border-radius: 1.5rem;
-      padding: 1rem;
-      margin-top: 1rem;
-      border: 1px solid #caddf0;
-      word-break: break-all;
-    }
-
-    .share-link {
-      font-size: 0.85rem;
-      background: #eef2f6;
-      padding: 0.7rem;
-      border-radius: 2rem;
-      font-family: monospace;
-      margin-top: 0.5rem;
-      border: 1px solid #cfdfea;
-    }
-
-    .copy-btn {
-      background: #458466;
-      padding: 0.4rem 1rem;
-      font-size: 0.8rem;
-      margin-top: 0.6rem;
-    }
-
-    .feedback {
-      font-size: 0.8rem;
-      color: #2a7f6e;
-      text-align: center;
-      margin-top: 0.6rem;
-    }
-
-    footer {
-      text-align: center;
-      font-size: 0.7rem;
-      color: #6e8b9c;
-      margin-top: 2rem;
-    }
-
-    @media (max-width: 600px) {
-      .checklist-grid {
-        grid-template-columns: 1fr; /* Stack on small mobile */
-      }
-      .check-item.right-align {
-        flex-direction: row; /* Normal layout for mobile stack */
-        text-align: left;
-      }
-      .card {
-        padding: 1.2rem;
-      }
-    }
+    .share-area { background: #fff; padding: 15px; border-radius: 1rem; margin-top: 20px; border: 1px solid #caddf0; }
+    .share-link { font-family: monospace; font-size: 0.8rem; word-break: break-all; background: #eee; padding: 10px; display: block; margin: 10px 0; }
   </style>
 </head>
 <body>
@@ -279,228 +115,119 @@
   <div class="header">
     <h1>🌱 voice board</h1>
     <p>check what I feel like doing</p>
-    <p style="font-size:0.85rem">✨ tap & share — helps me speak my mind when words are hard</p>
   </div>
 
   <div class="card">
     <h2>📋 activities I'd like to do</h2>
     <div class="checklist-grid">
-      <div class="checklist" id="activitiesListLeft">
-        </div>
-      <div class="checklist" id="activitiesListRight">
-        </div>
+      <div class="checklist-column left-col" id="listLeft"></div>
+      <div class="checklist-column right-col" id="listRight"></div>
     </div>
   </div>
 
   <div class="card">
     <h2>🤍 general feeling</h2>
-    <div class="choice-group" id="yesNoMaybeGroup">
-      </div>
+    <div class="choice-group" id="yesNoGroup"></div>
   </div>
 
   <div class="card">
     <h2>🔘 Who's Getting Involved</h2>
-    <div class="abc-options" id="abcGroup">
-      </div>
+    <div class="abc-options" id="abcGroup"></div>
   </div>
 
   <div class="card">
-    <h2>✍️ extra note (optional)</h2>
-    <textarea id="freeNote" rows="2" placeholder="add anything extra..." style="width:100%; padding:0.8rem; border-radius:24px; border:1px solid #cbdde9; font-family:inherit; resize:vertical;"></textarea>
+    <textarea id="freeNote" placeholder="Extra notes..." style="width:100%; padding:10px; border-radius:15px;"></textarea>
   </div>
 
   <div class="action-buttons">
-    <button id="saveAndShareBtn">🔗 SAVE & CREATE LINK</button>
-    <button id="resetBtn" class="btn-secondary">⟳ reset all</button>
+    <button id="saveBtn">🔗 SAVE & CREATE LINK</button>
+    <button onclick="location.reload()" style="background:#517a8b">⟳ RESET</button>
   </div>
 
-  <div class="share-area" id="shareArea" style="display: none;">
-    <div style="font-weight: 600; margin-bottom: 8px;">📎 share this link with your Mrs:</div>
-    <div id="shareLinkText" class="share-link">...</div>
-    <button id="copyLinkBtn" class="copy-btn">📋 copy link</button>
-    <div id="copyFeedback" class="feedback"></div>
+  <div class="share-area" id="shareArea" style="display:none">
+    <strong>Share this link:</strong>
+    <span class="share-link" id="linkPath"></span>
+    <button id="copyBtn" style="background:#458466">📋 COPY LINK</button>
   </div>
-  <footer>💬 tap 'save & create link' → send the link → she sees exactly what you feel</footer>
 </div>
 
 <script>
-  const editableConfig = {
-    activities: [
-      "👅 Lick", "🫗 Swallow", "💦 Spit", 
-      "🎮 Play", "🍽️ Eat", "👗 Wear", 
-      "💾 Save", "📤 Share", "🫣 Humiliation"
-    ],
-    yesNoButtons: [
-      { value: "yes", display: "✅ YES" },
-      { value: "no", display: "❌ NO" },
-      { value: "maybe", display: "🤔 MAYBE" }
-    ],
-    abcOptions: [
-      { letter: "👩‍❤️‍👨", label: "Both Get to Cum" },
-      { letter: "🧛", label: "Just Me" },
-      { letter: "🧕", label: "Just You" }
-    ]
+  const config = {
+    activities: ["👅 Lick", "🫗 Swallow", "💦 Spit", "🎮 Play", "🍽️ Eat", "👗 Wear", "💾 Save", "📤 Share", "🫣 Humiliation"],
+    yesNo: [{v:"yes", t:"✅ YES"}, {v:"no", t:"❌ NO"}, {v:"maybe", t:"🤔 MAYBE"}],
+    abc: [{i:"👩‍❤️‍👨", l:"Both"}, {i:"🧛", l:"Just Me"}, {i:"🧕", l:"Just You"}]
   };
 
-  let activitiesState = {};
-  let yesNoSelected = null;
-  let abcSelected = null;
+  let state = { acts: {}, yn: null, abc: null };
 
-  const listLeft = document.getElementById("activitiesListLeft");
-  const listRight = document.getElementById("activitiesListRight");
-  const yesNoGroup = document.getElementById("yesNoMaybeGroup");
-  const abcContainer = document.getElementById("abcGroup");
-  const freeNoteElem = document.getElementById("freeNote");
-  const shareAreaDiv = document.getElementById("shareArea");
-  const shareLinkSpan = document.getElementById("shareLinkText");
-  const copyBtn = document.getElementById("copyLinkBtn");
-  const copyFeedbackSpan = document.getElementById("copyFeedback");
-  const saveBtn = document.getElementById("saveAndShareBtn");
-  const resetBtn = document.getElementById("resetBtn");
+  function render() {
+    const left = document.getElementById('listLeft');
+    const right = document.getElementById('listRight');
+    left.innerHTML = ''; right.innerHTML = '';
 
-  function buildActivitiesUI() {
-    listLeft.innerHTML = "";
-    listRight.innerHTML = "";
-    
-    // Split the list in half
-    const half = Math.ceil(editableConfig.activities.length / 2);
-    
-    editableConfig.activities.forEach((activity, idx) => {
-      const isChecked = activitiesState[activity] || false;
-      const itemDiv = document.createElement("div");
+    config.activities.forEach((act, i) => {
+      const div = document.createElement('div');
+      div.className = 'check-item';
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = state.acts[act] || false;
+      cb.onchange = () => state.acts[act] = cb.checked;
       
-      // Assign class based on column
-      if (idx < half) {
-        itemDiv.className = "check-item left-align";
-      } else {
-        itemDiv.className = "check-item right-align";
-      }
+      const lbl = document.createElement('label');
+      lbl.textContent = act;
+      
+      div.appendChild(cb);
+      div.appendChild(lbl);
+      
+      // Put in left column first, then right column
+      if (i < 5) { left.appendChild(div); } 
+      else { right.appendChild(div); }
+    });
 
-      const checkBox = document.createElement("input");
-      checkBox.type = "checkbox";
-      checkBox.checked = isChecked;
-      checkBox.addEventListener("change", (e) => {
-        activitiesState[activity] = e.target.checked;
-      });
+    const ynBox = document.getElementById('yesNoGroup');
+    ynBox.innerHTML = '';
+    config.yesNo.forEach(opt => {
+      const btn = document.createElement('div');
+      btn.className = 'choice-btn' + (state.yn === opt.v ? ' selected-' + opt.v : '');
+      btn.textContent = opt.t;
+      btn.onclick = () => { state.yn = opt.v; render(); };
+      ynBox.appendChild(btn);
+    });
 
-      const label = document.createElement("label");
-      label.textContent = activity;
-
-      itemDiv.appendChild(checkBox);
-      itemDiv.appendChild(label);
-
-      if (idx < half) {
-        listLeft.appendChild(itemDiv);
-      } else {
-        listRight.appendChild(itemDiv);
-      }
+    const abcBox = document.getElementById('abcGroup');
+    abcBox.innerHTML = '';
+    config.abc.forEach((opt, idx) => {
+      const card = document.createElement('div');
+      card.className = 'abc-card' + (state.abc === idx ? ' selected' : '');
+      card.innerHTML = `<div>${opt.i}</div><div style="font-size:0.8rem">${opt.l}</div>`;
+      card.onclick = () => { state.abc = idx; render(); };
+      abcBox.appendChild(card);
     });
   }
 
-  function syncActivitiesFromDOM() {
-    // Collect from both lists
-    const allCheckboxes = document.querySelectorAll('.check-item input[type="checkbox"]');
-    const allLabels = document.querySelectorAll('.check-item label');
-    allCheckboxes.forEach((cb, i) => {
-      activitiesState[allLabels[i].textContent] = cb.checked;
-    });
-  }
+  document.getElementById('saveBtn').onclick = () => {
+    const data = btoa(encodeURIComponent(JSON.stringify({...state, note: document.getElementById('freeNote').value})));
+    const url = window.location.href.split('#')[0] + '#data=' + data;
+    document.getElementById('shareArea').style.display = 'block';
+    document.getElementById('linkPath').textContent = url;
+  };
 
-  function buildYesNoUI() {
-    yesNoGroup.innerHTML = "";
-    editableConfig.yesNoButtons.forEach(btn => {
-      const btnDiv = document.createElement("div");
-      btnDiv.className = "choice-btn";
-      if (yesNoSelected === btn.value) {
-        btnDiv.classList.add(`selected-${btn.value}`);
-      }
-      btnDiv.textContent = btn.display;
-      btnDiv.onclick = () => {
-        yesNoSelected = (yesNoSelected === btn.value) ? null : btn.value;
-        buildYesNoUI();
-      };
-      yesNoGroup.appendChild(btnDiv);
-    });
-  }
+  document.getElementById('copyBtn').onclick = () => {
+    navigator.clipboard.writeText(document.getElementById('linkPath').textContent);
+    alert("Copied!");
+  };
 
-  function buildAbcUI() {
-    abcContainer.innerHTML = "";
-    editableConfig.abcOptions.forEach((opt, idx) => {
-      const card = document.createElement("div");
-      card.className = "abc-card";
-      if (abcSelected === idx) card.classList.add("selected");
-      card.innerHTML = `<span>${opt.letter}</span> ${opt.label}`;
-      card.onclick = () => {
-        abcSelected = (abcSelected === idx) ? null : idx;
-        buildAbcUI();
-      };
-      abcContainer.appendChild(card);
-    });
-  }
-
-  function getCurrentState() {
-    syncActivitiesFromDOM();
-    return {
-      activities: { ...activitiesState },
-      yesNo: yesNoSelected,
-      abcIndex: abcSelected,
-      note: freeNoteElem.value,
-      version: 2
-    };
-  }
-
-  function loadStateIntoUI(state) {
-    editableConfig.activities.forEach(act => {
-      activitiesState[act] = state.activities ? !!state.activities[act] : false;
-    });
-    yesNoSelected = state.yesNo || null;
-    abcSelected = (typeof state.abcIndex === 'number') ? state.abcIndex : null;
-    freeNoteElem.value = state.note || "";
-    buildActivitiesUI();
-    buildYesNoUI();
-    buildAbcUI();
-  }
-
-  function saveAndCreateLink() {
-    const current = getCurrentState();
-    const encoded = btoa(encodeURIComponent(JSON.stringify(current)));
-    const fullUrl = window.location.href.split('#')[0] + "#data=" + encoded;
-    shareAreaDiv.style.display = "block";
-    shareLinkSpan.innerText = fullUrl;
-    window.history.replaceState(null, '', fullUrl);
-    copyFeedbackSpan.innerText = "✨ Link created!";
-  }
-
-  async function copyLinkToClipboard() {
+  // Load from URL if data exists
+  const hash = window.location.hash;
+  if (hash.includes('data=')) {
     try {
-      await navigator.clipboard.writeText(shareLinkSpan.innerText);
-      copyFeedbackSpan.innerText = "✅ Link copied!";
-    } catch (err) {
-      copyFeedbackSpan.innerText = "⚠️ Copy failed";
-    }
+      const saved = JSON.parse(decodeURIComponent(atob(hash.split('data=')[1])));
+      state = saved;
+      document.getElementById('freeNote').value = saved.note || '';
+    } catch(e) {}
   }
 
-  function init() {
-    editableConfig.activities.forEach(act => { activitiesState[act] = false; });
-    const hash = window.location.hash;
-    if (hash.startsWith('#data=')) {
-      try {
-        const state = JSON.parse(decodeURIComponent(atob(hash.substring(6))));
-        loadStateIntoUI(state);
-        shareAreaDiv.style.display = 'block';
-        shareLinkSpan.innerText = window.location.href;
-      } catch(e) { buildActivitiesUI(); buildYesNoUI(); buildAbcUI(); }
-    } else {
-      buildActivitiesUI();
-      buildYesNoUI();
-      buildAbcUI();
-    }
-    saveBtn.onclick = saveAndCreateLink;
-    copyBtn.onclick = copyLinkToClipboard;
-    resetBtn.onclick = () => { window.location.hash = ""; location.reload(); };
-  }
-
-  init();
+  render();
 </script>
 </body>
 </html>
