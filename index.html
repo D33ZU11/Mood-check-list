@@ -19,7 +19,7 @@
     }
 
     .container {
-      max-width: 1000px;
+      max-width: 1200px;
       margin: 0 auto;
     }
 
@@ -62,22 +62,23 @@
       color: #1e3a3a;
     }
 
-    /* TWO COLUMN LAYOUT FOR ACTIVITIES */
+    /* TWO COLUMN LAYOUT - SIDE BY SIDE, NO WRAP ON DESKTOP */
     .dual-columns {
       display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
+      flex-direction: row;
+      gap: 2rem;
     }
     .column {
       flex: 1;
-      min-width: 200px;
+      min-width: 0; /* prevents overflow */
     }
     .column h3 {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       color: #2c6e5c;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
       padding-left: 0.5rem;
       border-left: 3px solid #8fc1b0;
+      text-align: center;
     }
     .checklist {
       display: flex;
@@ -89,36 +90,36 @@
       align-items: center;
       gap: 0.8rem;
       background: #ffffffd9;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1rem;
       border-radius: 60px;
       border: 1px solid #e2edf2;
     }
     .check-item label {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 500;
       flex: 1;
       cursor: pointer;
       color: #1f3b3a;
     }
     input[type="checkbox"] {
-      width: 1.4rem;
-      height: 1.4rem;
+      width: 1.3rem;
+      height: 1.3rem;
       accent-color: #2c8f6e;
       cursor: pointer;
     }
-    /* checkbox on right side */
+    /* checkbox on right side for right column */
     .check-item-right {
       display: flex;
       align-items: center;
       gap: 0.8rem;
       background: #ffffffd9;
-      padding: 0.5rem 1rem;
+      padding: 0.6rem 1rem;
       border-radius: 60px;
       border: 1px solid #e2edf2;
       flex-direction: row-reverse;
     }
     .check-item-right label {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 500;
       flex: 1;
       cursor: pointer;
@@ -126,9 +127,9 @@
       text-align: left;
     }
     .check-item-right input {
-      width: 1.4rem;
-      height: 1.4rem;
-      accent-color: #2c8f6e;
+      width: 1.3rem;
+      height: 1.3rem;
+      accent-color: #bc6c4b; /* different color for right side to distinguish */
       cursor: pointer;
     }
 
@@ -280,16 +281,20 @@
       margin-top: 2rem;
     }
 
-    @media (max-width: 700px) {
+    /* On mobile screens, they stack vertically but still look fine */
+    @media (max-width: 750px) {
       .dual-columns {
         flex-direction: column;
-        gap: 1rem;
+        gap: 1.5rem;
       }
       .card {
         padding: 1.2rem;
       }
       .choice-btn, .abc-card {
         font-size: 0.9rem;
+      }
+      .column h3 {
+        text-align: left;
       }
     }
   </style>
@@ -303,7 +308,7 @@
     <p style="font-size:0.85rem">✨ tap & share — helps me speak my mind when words are hard</p>
   </div>
 
-  <!-- ========= SECTION 1 : TWO ACTIVITIES LISTS (LEFT + RIGHT) ========= -->
+  <!-- ========= SECTION 1 : TWO ACTIVITIES LISTS SIDE BY SIDE ========= -->
   <div class="card">
     <h2>📋 activities I'd like to do</h2>
     <div class="dual-columns">
