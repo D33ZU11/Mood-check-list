@@ -19,7 +19,7 @@
     }
 
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
     }
 
@@ -62,12 +62,28 @@
       color: #1e3a3a;
     }
 
+    /* TWO COLUMN LAYOUT FOR ACTIVITIES */
+    .dual-columns {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .column {
+      flex: 1;
+      min-width: 200px;
+    }
+    .column h3 {
+      font-size: 1.1rem;
+      color: #2c6e5c;
+      margin-bottom: 0.8rem;
+      padding-left: 0.5rem;
+      border-left: 3px solid #8fc1b0;
+    }
     .checklist {
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
     }
-
     .check-item {
       display: flex;
       align-items: center;
@@ -77,7 +93,6 @@
       border-radius: 60px;
       border: 1px solid #e2edf2;
     }
-
     .check-item label {
       font-size: 1.05rem;
       font-weight: 500;
@@ -85,8 +100,32 @@
       cursor: pointer;
       color: #1f3b3a;
     }
-
     input[type="checkbox"] {
+      width: 1.4rem;
+      height: 1.4rem;
+      accent-color: #2c8f6e;
+      cursor: pointer;
+    }
+    /* checkbox on right side */
+    .check-item-right {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: #ffffffd9;
+      padding: 0.5rem 1rem;
+      border-radius: 60px;
+      border: 1px solid #e2edf2;
+      flex-direction: row-reverse;
+    }
+    .check-item-right label {
+      font-size: 1.05rem;
+      font-weight: 500;
+      flex: 1;
+      cursor: pointer;
+      color: #1f3b3a;
+      text-align: left;
+    }
+    .check-item-right input {
       width: 1.4rem;
       height: 1.4rem;
       accent-color: #2c8f6e;
@@ -241,7 +280,11 @@
       margin-top: 2rem;
     }
 
-    @media (max-width: 550px) {
+    @media (max-width: 700px) {
+      .dual-columns {
+        flex-direction: column;
+        gap: 1rem;
+      }
       .card {
         padding: 1.2rem;
       }
@@ -260,11 +303,24 @@
     <p style="font-size:0.85rem">✨ tap & share — helps me speak my mind when words are hard</p>
   </div>
 
-  <!-- ========= SECTION 1 : ACTIVITIES (checklist) ========= -->
+  <!-- ========= SECTION 1 : TWO ACTIVITIES LISTS (LEFT + RIGHT) ========= -->
   <div class="card">
     <h2>📋 activities I'd like to do</h2>
-    <div class="checklist" id="activitiesList">
-      <!-- dynamic checklist from JS -->
+    <div class="dual-columns">
+      <!-- LEFT COLUMN: checkboxes on LEFT side -->
+      <div class="column">
+        <h3>✨ want to try / open to</h3>
+        <div class="checklist" id="activitiesListLeft">
+          <!-- dynamic left checklist from JS -->
+        </div>
+      </div>
+      <!-- RIGHT COLUMN: checkboxes on RIGHT side -->
+      <div class="column">
+        <h3>🚫 not today / prefer not</h3>
+        <div class="checklist" id="activitiesListRight">
+          <!-- dynamic right checklist from JS (same items, checkboxes on right) -->
+        </div>
+      </div>
     </div>
   </div>
 
@@ -314,7 +370,7 @@
   // **************  EDITABLE SETTINGS (HINTS INSIDE CODE) **************
   // ============================================================
   // Look below to easily customize:
-  // 1. ACTIVITIES list  -> add/remove any checkbox options
+  // 1. ACTIVITIES list  -> add/remove any checkbox options (same list appears on both sides)
   // 2. YES/NO/MAYBE labels -> change button text
   // 3. A/B/C options -> rename the three choices
   // ============================================================
@@ -322,19 +378,20 @@
   const editableConfig = {
     // ------------------------------------------------------------------
     // 📋 ACTIVITIES SECTION: add or remove any string you like.
-    //    Each string becomes a checkbox. Check = I want / positive,
-    //    Uncheck = I don't want / not up for it.
+    //    Each string becomes a checkbox on BOTH sides.
+    //    LEFT side = checkboxes on left (things you WANT to do)
+    //    RIGHT side = checkboxes on right (things you DON'T want / avoid)
     // ------------------------------------------------------------------
     activities: [
-  "👅 Lick",
-  "🫗 Swallow",
-  "💦 Spit",
-  "🎮 Play",
-  "🍽️ Eat",
-  "👗 Wear",
-  "💾 Save",
-  "📤 Share",
-  "🫣 Humiliation"
+      "👅 Lick",
+      "🫗 Swallow",
+      "💦 Spit",
+      "🎮 Play",
+      "🍽️ Eat",
+      "👗 Wear",
+      "💾 Save",
+      "📤 Share",
+      "🫣 Humiliation"
       // 👆 ADD NEW ACTIVITIES HERE: just add a new line like:
       // "🛒 Go grocery shopping",
       // "🎨 Draw or paint together",
@@ -365,13 +422,18 @@
   };
 
   // ---------- STATE ----------
-  let activitiesState = {};      // key: activityText -> boolean (checked = want)
+  // For LEFT column: things I WANT (checked = want to do)
+  let leftActivitiesState = {};      // key: activityText -> boolean
+  // For RIGHT column: things I DON'T WANT / avoid (checked = don't want / not today)
+  let rightActivitiesState = {};      // key: activityText -> boolean
+  
   let yesNoSelected = null;      // "yes", "no", "maybe"
   let abcSelected = null;        // index 0,1,2
   let freeNoteText = "";
 
   // DOM elements
-  const activitiesContainer = document.getElementById("activitiesList");
+  const leftContainer = document.getElementById("activitiesListLeft");
+  const rightContainer = document.getElementById("activitiesListRight");
   const yesNoGroup = document.getElementById("yesNoMaybeGroup");
   const abcContainer = document.getElementById("abcGroup");
   const freeNoteElem = document.getElementById("freeNote");
@@ -382,35 +444,67 @@
   const saveBtn = document.getElementById("saveAndShareBtn");
   const resetBtn = document.getElementById("resetBtn");
 
-  // ---------- helper: build activities UI from editableConfig ----------
-  function buildActivitiesUI() {
-    activitiesContainer.innerHTML = "";
+  // ---------- helper: build LEFT activities UI (checkbox on left) ----------
+  function buildLeftActivitiesUI() {
+    leftContainer.innerHTML = "";
     editableConfig.activities.forEach(activity => {
-      const isChecked = activitiesState[activity] || false;
+      const isChecked = leftActivitiesState[activity] || false;
       const itemDiv = document.createElement("div");
-      itemDiv.className = "check-item";
+      itemDiv.className = "check-item";  // normal: checkbox on left
       const checkBox = document.createElement("input");
       checkBox.type = "checkbox";
       checkBox.checked = isChecked;
       checkBox.addEventListener("change", (e) => {
-        activitiesState[activity] = e.target.checked;
+        leftActivitiesState[activity] = e.target.checked;
       });
       const label = document.createElement("label");
       label.textContent = activity;
       itemDiv.appendChild(checkBox);
       itemDiv.appendChild(label);
-      activitiesContainer.appendChild(itemDiv);
+      leftContainer.appendChild(itemDiv);
     });
   }
 
-  // sync activitiesState from current checkboxes (ensures accuracy after reset/load)
+  // ---------- helper: build RIGHT activities UI (checkbox on right side) ----------
+  function buildRightActivitiesUI() {
+    rightContainer.innerHTML = "";
+    editableConfig.activities.forEach(activity => {
+      const isChecked = rightActivitiesState[activity] || false;
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "check-item-right";  // special class: checkbox on right
+      const checkBox = document.createElement("input");
+      checkBox.type = "checkbox";
+      checkBox.checked = isChecked;
+      checkBox.addEventListener("change", (e) => {
+        rightActivitiesState[activity] = e.target.checked;
+      });
+      const label = document.createElement("label");
+      label.textContent = activity;
+      // For right side: append checkbox AFTER label (flex-direction row-reverse in CSS)
+      itemDiv.appendChild(label);
+      itemDiv.appendChild(checkBox);
+      rightContainer.appendChild(itemDiv);
+    });
+  }
+
+  // sync both sides from DOM (to capture any changes made directly)
   function syncActivitiesFromDOM() {
-    const checkboxes = activitiesContainer.querySelectorAll('input[type="checkbox"]');
-    const labels = activitiesContainer.querySelectorAll('.check-item label');
-    for (let i = 0; i < checkboxes.length; i++) {
-      const activityText = labels[i]?.textContent || "";
+    // left side sync
+    const leftChecks = leftContainer.querySelectorAll('input[type="checkbox"]');
+    const leftLabels = leftContainer.querySelectorAll('.check-item label');
+    for (let i = 0; i < leftChecks.length; i++) {
+      const activityText = leftLabels[i]?.textContent || "";
       if (activityText) {
-        activitiesState[activityText] = checkboxes[i].checked;
+        leftActivitiesState[activityText] = leftChecks[i].checked;
+      }
+    }
+    // right side sync
+    const rightChecks = rightContainer.querySelectorAll('.check-item-right input[type="checkbox"]');
+    const rightLabels = rightContainer.querySelectorAll('.check-item-right label');
+    for (let i = 0; i < rightChecks.length; i++) {
+      const activityText = rightLabels[i]?.textContent || "";
+      if (activityText) {
+        rightActivitiesState[activityText] = rightChecks[i].checked;
       }
     }
   }
@@ -465,30 +559,36 @@
     syncActivitiesFromDOM();
     const freeText = freeNoteElem.value;
     return {
-      activities: { ...activitiesState },
+      leftActivities: { ...leftActivitiesState },
+      rightActivities: { ...rightActivitiesState },
       yesNo: yesNoSelected,
       abcIndex: abcSelected,
       abcLabels: editableConfig.abcOptions.map(opt => ({ letter: opt.letter, label: opt.label })),
       note: freeText,
-      version: 2
+      version: 3   // version bump for dual lists
     };
   }
 
   // load state into UI (used when restoring from link)
   function loadStateIntoUI(state) {
-    // activities
-    if (state.activities && typeof state.activities === 'object') {
+    // left activities
+    if (state.leftActivities && typeof state.leftActivities === 'object') {
       editableConfig.activities.forEach(act => {
-        if (state.activities.hasOwnProperty(act)) {
-          activitiesState[act] = !!state.activities[act];
-        } else {
-          activitiesState[act] = false;
-        }
+        leftActivitiesState[act] = !!state.leftActivities[act];
       });
     } else {
-      editableConfig.activities.forEach(act => { activitiesState[act] = false; });
+      editableConfig.activities.forEach(act => { leftActivitiesState[act] = false; });
     }
-    buildActivitiesUI();
+    // right activities
+    if (state.rightActivities && typeof state.rightActivities === 'object') {
+      editableConfig.activities.forEach(act => {
+        rightActivitiesState[act] = !!state.rightActivities[act];
+      });
+    } else {
+      editableConfig.activities.forEach(act => { rightActivitiesState[act] = false; });
+    }
+    buildLeftActivitiesUI();
+    buildRightActivitiesUI();
 
     // yes/no
     if (state.yesNo && editableConfig.yesNoButtons.some(b => b.value === state.yesNo)) {
@@ -498,7 +598,7 @@
     }
     buildYesNoUI();
 
-    // abc: restore based on index, but ensure abcOptions length
+    // abc: restore based on index
     if (typeof state.abcIndex === 'number' && state.abcIndex >= 0 && state.abcIndex < editableConfig.abcOptions.length) {
       abcSelected = state.abcIndex;
     } else {
@@ -533,7 +633,7 @@
       try {
         let decodedStr = decodeURIComponent(atob(encoded));
         const state = JSON.parse(decodedStr);
-        if (state && (state.activities || state.yesNo !== undefined)) {
+        if (state && (state.leftActivities || state.rightActivities || state.yesNo !== undefined)) {
           loadStateIntoUI(state);
           shareAreaDiv.style.display = 'block';
           shareLinkSpan.innerText = window.location.href;
@@ -546,8 +646,12 @@
 
   // reset everything to empty/unchecked
   function resetAllSelections() {
-    editableConfig.activities.forEach(act => { activitiesState[act] = false; });
-    buildActivitiesUI();
+    editableConfig.activities.forEach(act => { 
+      leftActivitiesState[act] = false;
+      rightActivitiesState[act] = false;
+    });
+    buildLeftActivitiesUI();
+    buildRightActivitiesUI();
     yesNoSelected = null;
     buildYesNoUI();
     abcSelected = null;
@@ -602,9 +706,13 @@
 
   // initialize the app
   function init() {
-    // initialize activities state with false for all configured activities
-    editableConfig.activities.forEach(act => { activitiesState[act] = false; });
-    buildActivitiesUI();
+    // initialize both states with false
+    editableConfig.activities.forEach(act => { 
+      leftActivitiesState[act] = false;
+      rightActivitiesState[act] = false;
+    });
+    buildLeftActivitiesUI();
+    buildRightActivitiesUI();
     buildYesNoUI();
     buildAbcUI();
     
