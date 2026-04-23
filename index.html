@@ -3,36 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>💋 Feelings & Needs Board • spicy love edition 💋</title>
+  <title>🖤 Dark Desires • Love Board 🖤</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ========= SENSUAL, SPICY, ROMANTIC THEME ========= */
+    /* ========= DARK & PURPLE SENSUAL THEME ========= */
     body {
-      background: linear-gradient(145deg, #ffdde1 0%, #ee9ca7 100%);
+      background: linear-gradient(145deg, #120b1a 0%, #1e162b 100%);
       font-family: 'Segoe UI', 'Quicksand', 'Poppins', system-ui, sans-serif;
       padding: 1.5rem 1rem;
-      color: #2e1b2c;
+      color: #f0e6ff;
       position: relative;
-    }
-
-    /* soft animated heart overlay */
-    body::before {
-      content: "❤️‍🔥";
-      font-size: 180px;
-      position: fixed;
-      bottom: -50px;
-      right: -50px;
-      opacity: 0.08;
-      pointer-events: none;
-      animation: slowSpin 25s infinite linear;
-      z-index: 0;
-    }
-
-    @keyframes slowSpin {
-      0% { transform: rotate(0deg); opacity: 0.06; }
-      50% { opacity: 0.12; transform: rotate(5deg); }
-      100% { transform: rotate(0deg); opacity: 0.06; }
+      min-height: 100vh;
     }
 
     .container { 
@@ -42,61 +24,61 @@
       z-index: 2;
     }
 
-    /* sexy header glow + pulse */
+    /* sexy header with purple glow */
     .header { 
       text-align: center; 
       margin-bottom: 2rem; 
     }
     .header h1 { 
       font-size: 2.2rem; 
-      background: linear-gradient(120deg, #b82b5e, #ff6f91, #ffb347);
+      background: linear-gradient(120deg, #c77dff, #b45eff, #e599ff);
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
       letter-spacing: -0.5px;
-      animation: softPulse 1.8s infinite alternate;
+      animation: purplePulse 1.8s infinite alternate;
       display: inline-block;
     }
-    @keyframes softPulse {
-      0% { text-shadow: 0 0 0px rgba(255, 80, 120, 0.2); }
-      100% { text-shadow: 0 0 12px rgba(255, 80, 120, 0.6); }
+    @keyframes purplePulse {
+      0% { text-shadow: 0 0 0px rgba(180, 94, 255, 0.3); }
+      100% { text-shadow: 0 0 14px rgba(180, 94, 255, 0.8); }
     }
     .header p {
       font-size: 1rem;
-      color: #6b2e4a;
+      color: #c9aaff;
       font-weight: 500;
-      background: rgba(255,235,240,0.5);
+      background: rgba(45, 30, 65, 0.6);
       display: inline-block;
       padding: 5px 18px;
       border-radius: 60px;
-      backdrop-filter: blur(2px);
+      backdrop-filter: blur(4px);
     }
 
-    /* cards with soft glass + hover lift + border sexy glow */
+    /* cards with dark glass + purple border */
     .card {
-      background: rgba(255, 248, 245, 0.92);
-      backdrop-filter: blur(2px);
+      background: rgba(25, 18, 38, 0.85);
+      backdrop-filter: blur(6px);
       border-radius: 2rem;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 105, 140, 0.3);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(160, 100, 220, 0.4);
       padding: 1.5rem;
       margin-bottom: 2rem;
       transition: transform 0.25s ease, box-shadow 0.3s ease;
     }
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 22px 35px rgba(160, 40, 80, 0.2), 0 0 0 1px #ff809f;
+      box-shadow: 0 22px 35px rgba(100, 50, 150, 0.3), 0 0 0 1px #b77eff;
     }
 
     .card h2 {
       font-size: 1.4rem;
-      border-left: 6px solid #e8436e;
+      border-left: 6px solid #b45eff;
       padding-left: 0.8rem;
       margin-bottom: 1.2rem;
-      color: #a13054;
+      color: #dbbaff;
       font-weight: 700;
     }
 
-    /* --- YOUR FORCE SIDE-BY-SIDE LAYOUT (exactly as you built) --- */
+    /* ===== YOUR TWO-COLUMN LAYOUT (PRESERVED) ===== */
     .checklist-grid {
       display: flex;
       gap: 15px;
@@ -114,28 +96,24 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background: #fff2f5;
+      background: #2a1e3c;
       padding: 8px 12px;
       border-radius: 50px;
-      border: 1px solid #ffbfcf;
+      border: 1px solid #6a3e8f;
       min-height: 45px;
       transition: all 0.2s ease-in-out;
       cursor: pointer;
     }
-    /* sexy hover effect on check items */
     .check-item:hover {
-      background: #ffe2ea;
-      border-color: #e8436e;
+      background: #3f2a5a;
+      border-color: #c77dff;
       transform: scale(1.01);
-      box-shadow: 0 4px 10px rgba(232, 67, 110, 0.2);
+      box-shadow: 0 4px 12px rgba(150, 80, 220, 0.3);
     }
 
-    /* Column 1: Checkbox on Left (Default) */
     .left-col .check-item {
       flex-direction: row;
     }
-
-    /* Column 2: Checkbox on Right (your original design) */
     .right-col .check-item {
       flex-direction: row-reverse;
       text-align: right;
@@ -146,15 +124,14 @@
       cursor: pointer;
       font-weight: 600;
       font-size: 0.95rem;
-      color: #441e32;
-      letter-spacing: 0.2px;
+      color: #e7d5ff;
     }
 
-    /* sexy custom checkboxes */
+    /* purple checkboxes */
     input[type="checkbox"] {
       width: 1.3rem;
       height: 1.3rem;
-      accent-color: #ff4d7a;
+      accent-color: #b45eff;
       cursor: pointer;
       transition: transform 0.1s ease;
     }
@@ -162,7 +139,7 @@
       transform: scale(0.85);
     }
 
-    /* rest of styling (choices, abc, buttons) with spicy colors */
+    /* feeling buttons - dark purple theme */
     .choice-group { 
       display: flex; 
       gap: 10px; 
@@ -171,35 +148,35 @@
     .choice-btn {
       flex: 1; 
       text-align: center; 
-      background: #fbe5ec;
+      background: #2a1e3c;
       padding: 12px; 
       border-radius: 50px; 
       cursor: pointer; 
       font-weight: 700;
       transition: all 0.2s;
-      border: 1px solid #ffb7c8;
-      color: #882d50;
+      border: 1px solid #7b4caf;
+      color: #e2ccff;
     }
     .choice-btn:hover {
       transform: translateY(-2px);
-      background: #ffd9e3;
-      box-shadow: 0 6px 12px rgba(232, 67, 110, 0.2);
+      background: #402b5c;
+      box-shadow: 0 6px 12px rgba(130, 70, 200, 0.3);
     }
     .selected-yes { 
-      background: #de5a7e; 
+      background: #9a4dff; 
       color: white; 
-      box-shadow: 0 4px 12px #de5a7e80;
-      border-color: #fff0f3;
+      box-shadow: 0 4px 14px #9a4dff80;
+      border-color: #decbff;
     }
     .selected-no { 
-      background: #bc6c4b; 
+      background: #a8644b; 
       color: white;
-      box-shadow: 0 4px 12px #bc6c4b80;
+      box-shadow: 0 4px 14px #a8644b80;
     }
     .selected-maybe { 
-      background: #e6b12e; 
+      background: #b8860e; 
       color: #2c1a0c;
-      box-shadow: 0 4px 12px #e6b12e80;
+      box-shadow: 0 4px 14px #b8860e80;
     }
 
     .abc-options { 
@@ -211,38 +188,38 @@
       flex: 1; 
       text-align: center; 
       padding: 15px;
-      background: #fef0f3;
+      background: #241b37;
       border-radius: 1rem; 
       cursor: pointer; 
-      border: 1px solid #ffb7c8;
+      border: 1px solid #7b4caf;
       transition: all 0.2s;
     }
     .abc-card:hover {
-      background: #ffe2ea;
+      background: #382752;
       transform: translateY(-3px);
-      border-color: #e8436e;
+      border-color: #b77eff;
     }
     .abc-card.selected { 
-      background: #c94f73; 
+      background: #8f4ad4; 
       color: white; 
-      box-shadow: 0 6px 14px rgba(201, 79, 115, 0.4);
+      box-shadow: 0 6px 14px rgba(143, 74, 212, 0.5);
     }
 
-    /* textarea with kinky glow */
     textarea {
       width: 100%;
       padding: 12px;
       border-radius: 1.2rem;
-      background: #fff5f7;
-      border: 1px solid #ffa5bd;
+      background: #1e152e;
+      border: 1px solid #6a3e8f;
+      color: #f0e2ff;
       font-family: inherit;
       font-size: 0.9rem;
       transition: 0.2s;
     }
     textarea:focus {
       outline: none;
-      border-color: #e8436e;
-      box-shadow: 0 0 0 3px rgba(232, 67, 110, 0.2);
+      border-color: #b45eff;
+      box-shadow: 0 0 0 3px rgba(150, 80, 220, 0.3);
     }
 
     .action-buttons { 
@@ -255,29 +232,29 @@
       padding: 12px 28px; 
       border-radius: 50px; 
       border: none;
-      background: #c5486b; 
+      background: #6a3d9b; 
       color: white; 
       font-weight: 700; 
       cursor: pointer;
       transition: all 0.2s ease;
       letter-spacing: 0.3px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
     button:hover {
-      background: #da5a81;
+      background: #8a4fc7;
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 12px 20px rgba(197, 72, 107, 0.3);
+      box-shadow: 0 12px 20px rgba(106, 61, 155, 0.4);
     }
     button:active {
       transform: translateY(1px);
     }
 
     .share-area { 
-      background: rgba(255, 245, 248, 0.95); 
+      background: rgba(30, 20, 48, 0.95); 
       padding: 18px; 
       border-radius: 1.5rem; 
       margin-top: 20px; 
-      border: 1px solid #ff99b5;
+      border: 1px solid #9a4dff;
       backdrop-filter: blur(8px);
       animation: fadePop 0.4s ease;
     }
@@ -289,30 +266,31 @@
       font-family: monospace; 
       font-size: 0.8rem; 
       word-break: break-all; 
-      background: #ffeef3; 
+      background: #1a122b; 
       padding: 10px; 
       display: block; 
       margin: 10px 0; 
       border-radius: 20px;
-      border: 1px solid #ff8eae;
-      color: #a13458;
+      border: 1px solid #b87aff;
+      color: #e2c5ff;
     }
     #copyBtn {
-      background: #b5456b;
-      padding: 8px 20px;
+      background: #7344a8;
     }
 
-    /* tiny sparkle heart animation for extra love */
-    @keyframes floatingKiss {
-      0% { transform: translateY(0) scale(0.8); opacity: 0.7; }
-      100% { transform: translateY(-40px) scale(1.2); opacity: 0; }
+    /* ===== KISS ANIMATION (random appearing, floating up) ===== */
+    @keyframes kissFloat {
+      0% { transform: translateY(0) scale(0.6); opacity: 0.8; }
+      70% { opacity: 1; transform: translateY(-80px) scale(1.1); }
+      100% { transform: translateY(-140px) scale(0.8); opacity: 0; }
     }
-    .kiss-emoji-anim {
+    .kiss-animation {
       position: fixed;
       pointer-events: none;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       z-index: 9999;
-      animation: floatingKiss 0.8s ease-out forwards;
+      animation: kissFloat 2.2s ease-out forwards;
+      filter: drop-shadow(0 0 4px #ff99ff);
     }
   </style>
 </head>
@@ -320,12 +298,12 @@
 
 <div class="container">
   <div class="header">
-    <h1>💗 voice board • love & desire 💗</h1>
-    <p>🔥 check what I feel like doing... be brave, baby 🔥</p>
+    <h1>🖤 voice board • dark desires 🖤</h1>
+    <p>💜 check what I crave... show me your love, baby 💜</p>
   </div>
 
   <div class="card">
-    <h2>🍑 activities I'd love to do with you</h2>
+    <h2>🍆 activities I'd love to do</h2>
     <div class="checklist-grid">
       <div class="checklist-column left-col" id="listLeft"></div>
       <div class="checklist-column right-col" id="listRight"></div>
@@ -333,7 +311,7 @@
   </div>
 
   <div class="card">
-    <h2>💋 general feeling (tell me the vibe)</h2>
+    <h2>💋 general feeling (be honest)</h2>
     <div class="choice-group" id="yesNoGroup"></div>
   </div>
 
@@ -343,95 +321,142 @@
   </div>
 
   <div class="card">
-    <textarea id="freeNote" placeholder="💬 whisper something sexy... fantasies, sweet words, or a little command 😈" rows="3"></textarea>
+    <textarea id="freeNote" placeholder="💬 whisper something... fantasies, sweet naughty words, or a little tease 😈" rows="3"></textarea>
   </div>
 
   <div class="action-buttons">
-    <button id="saveBtn">🔗 SAVE & CREATE SPICY LINK</button>
-    <button id="resetBtn" style="background:#91647c;">⟳ RESET (fresh start)</button>
+    <button id="saveBtn">🔮 SAVE & CREATE DARK LINK 🔮</button>
+    <button id="resetBtn" style="background:#5a3d7a;">⟳ RESET (fresh start)</button>
   </div>
 
   <div class="share-area" id="shareArea" style="display:none">
-    <strong>💌 our secret love link 💌</strong>
+    <strong>💜 our secret love link 💜</strong>
     <span class="share-link" id="linkPath"></span>
-    <button id="copyBtn">📋 COPY LINK & SEND TO ME</button>
+    <button id="copyBtn">📋 COPY & SEND TO MY LOVE</button>
   </div>
 </div>
 
 <script>
-  // ---- YOUR ORIGINAL CONFIG (only upgraded with spicier labels) ----
-  const config = {
-    activities: ["👅 Lick", "🫗 Swallow", "💦 Spit", "🎮 Play", "🍽️ Eat", "👗 Wear", "💾 Save", "📤 Share", "🫣 Humiliation"],
-    yesNo: [{v:"yes", t:"✅ YES (please 😈)"}, {v:"no", t:"❌ NO (maybe later?)"}, {v:"maybe", t:"🤔 MAYBE... tempt me"}],
-    abc: [{i:"👩‍❤️‍👨", l:"Both"}, {i:"🧛", l:"Just Me"}, {i:"🧕", l:"Just You"}]
-  };
+  // ================================================================
+  // 🔧 EDIT THIS LIST TO ADD/REMOVE ACTIVITIES 🔧
+  // ================================================================
+  // MARKER: ACTIVITIES_LIST - change items below to customize the checklist
+  // Format: each string is displayed as an option. Keep emojis for fun!
+  const ACTIVITIES = ["👅 Lick", "🫗 Swallow", "💦 Spit", "🎮 Play", "🍽️ Eat", "👗 Wear", "💾 Save", "📤 Share", "🫣 Humiliation"];
+  
+  // MARKER: FEELING_OPTIONS - change yes/no/maybe labels if desired
+  const FEELINGS = [
+    {v:"yes", t:"🔥 YES (please 😈)"},
+    {v:"no", t:"❌ NO (not tonight)"},
+    {v:"maybe", t:"💜 MAYBE... tempt me"}
+  ];
+  
+  // MARKER: INVOLVEMENT_OPTIONS - change who's involved (icons & labels)
+  const INVOLVEMENT = [
+    {i:"👩‍❤️‍👨", l:"Both"},
+    {i:"🧛", l:"Just Me"},
+    {i:"🧕", l:"Just You"}
+  ];
+  // ================================================================
+  // END OF EDITABLE MARKERS
+  // ================================================================
 
   let state = { acts: {}, yn: null, abc: null };
 
-  // sexy little floating kiss / heart effect (kinky touch)
-  function showFloatingKiss(x, y, emoji = "💋") {
+  // ----- KISS ANIMATION (random position, floating up) -----
+  function spawnRandomKiss() {
     const kissDiv = document.createElement('div');
-    kissDiv.className = 'kiss-emoji-anim';
-    kissDiv.innerHTML = emoji;
-    kissDiv.style.left = (x - 15) + 'px';
-    kissDiv.style.top = (y - 20) + 'px';
+    kissDiv.className = 'kiss-animation';
+    // random kiss emojis for variety
+    const kisses = ['💋', '💋💜', '💗', '💕', '💖', '🖤', '😈', '💜', '💋'];
+    const randomKiss = kisses[Math.floor(Math.random() * kisses.length)];
+    kissDiv.innerHTML = randomKiss;
+    // random horizontal position (10% to 90% of screen width)
+    const randomX = 10 + Math.random() * 80;
+    kissDiv.style.left = randomX + '%';
+    kissDiv.style.bottom = '-20px';
+    kissDiv.style.position = 'fixed';
     document.body.appendChild(kissDiv);
-    setTimeout(() => kissDiv.remove(), 800);
+    setTimeout(() => kissDiv.remove(), 2200);
   }
 
-  function showLoveBurst(targetElement) {
-    const rect = targetElement.getBoundingClientRect();
-    for(let i = 0; i < 4; i++) {
-      setTimeout(() => {
-        showFloatingKiss(rect.left + rect.width/2, rect.top + rect.height/2, ["❤️‍🔥", "💗", "💋", "😈"][i % 4]);
-      }, i * 40);
-    }
+  // spawn kisses more frequently (every 1.5 seconds) and random places
+  let kissInterval;
+  function startKissRain() {
+    if (kissInterval) clearInterval(kissInterval);
+    kissInterval = setInterval(() => {
+      if (!document.hidden) {
+        spawnRandomKiss();
+      }
+    }, 1800);
   }
-
-  // sexy feedback message (disappears after 1.5s)
-  function sexyFeedback(msg, isGood = true) {
+  
+  // sexy feedback message (duration doubled: now 3.2 seconds)
+  function sexyFeedback(msg) {
     const feedback = document.createElement('div');
     feedback.innerText = msg;
     feedback.style.position = 'fixed';
-    feedback.style.bottom = '20px';
+    feedback.style.bottom = '25px';
     feedback.style.left = '50%';
     feedback.style.transform = 'translateX(-50%)';
-    feedback.style.backgroundColor = '#de5a7e';
-    feedback.style.color = 'white';
-    feedback.style.padding = '10px 24px';
+    feedback.style.backgroundColor = '#7a3fbf';
+    feedback.style.color = '#f4e8ff';
+    feedback.style.padding = '12px 28px';
     feedback.style.borderRadius = '60px';
     feedback.style.fontWeight = 'bold';
-    feedback.style.fontSize = '0.9rem';
+    feedback.style.fontSize = '0.95rem';
     feedback.style.zIndex = '10000';
-    feedback.style.backdropFilter = 'blur(4px)';
-    feedback.style.boxShadow = '0 6px 20px #c4456e70';
-    feedback.style.border = '1px solid #ffc0d0';
+    feedback.style.backdropFilter = 'blur(8px)';
+    feedback.style.boxShadow = '0 6px 20px rgba(110, 50, 170, 0.6)';
+    feedback.style.border = '1px solid #c190ff';
     feedback.style.fontFamily = 'monospace';
+    feedback.style.letterSpacing = '0.3px';
     document.body.appendChild(feedback);
-    setTimeout(() => feedback.remove(), 1600);
+    // DOUBLED TIME: was 1.6s, now 3.2s
+    setTimeout(() => feedback.remove(), 3200);
   }
 
-  // RENDER FUNCTION (your original logic, but with extra love on click feedback)
+  function showItemBurst(targetElement) {
+    if (!targetElement) return;
+    const rect = targetElement.getBoundingClientRect();
+    for(let i = 0; i < 3; i++) {
+      setTimeout(() => {
+        const kiss = document.createElement('div');
+        kiss.className = 'kiss-animation';
+        kiss.innerHTML = '💋';
+        kiss.style.position = 'fixed';
+        kiss.style.left = (rect.left + rect.width/2 - 12) + 'px';
+        kiss.style.top = (rect.top + rect.height/2 - 10) + 'px';
+        kiss.style.fontSize = '1.3rem';
+        kiss.style.pointerEvents = 'none';
+        document.body.appendChild(kiss);
+        setTimeout(() => kiss.remove(), 1500);
+      }, i * 60);
+    }
+  }
+
+  // RENDER FUNCTION (preserves your exact two-column layout)
   function render() {
     const left = document.getElementById('listLeft');
     const right = document.getElementById('listRight');
-    left.innerHTML = ''; right.innerHTML = '';
+    left.innerHTML = '';
+    right.innerHTML = '';
 
-    config.activities.forEach((act, i) => {
+    // MARKER: ACTIVITIES_LIST - the loop uses ACTIVITIES array, edit above
+    ACTIVITIES.forEach((act, i) => {
       const div = document.createElement('div');
       div.className = 'check-item';
       const cb = document.createElement('input');
       cb.type = 'checkbox';
       cb.checked = state.acts[act] || false;
       
-      // add sexy feedback when checkbox changes
       cb.onchange = (e) => {
         state.acts[act] = cb.checked;
         if (cb.checked) {
           sexyFeedback(`✨ added "${act}" — oh yes, baby ✨`);
-          showLoveBurst(div);
+          showItemBurst(div);
         } else {
-          sexyFeedback(`😏 removed "${act}" — saving for next time 😏`);
+          sexyFeedback(`😏 removed "${act}" — saving for later 😏`);
         }
       };
       
@@ -441,29 +466,29 @@
       div.appendChild(cb);
       div.appendChild(lbl);
       
-      // make entire item clickable with nice feel
       div.addEventListener('click', (e) => {
         if (e.target !== cb) {
           cb.checked = !cb.checked;
           const newState = cb.checked;
           state.acts[act] = newState;
           if (newState) {
-            sexyFeedback(`💕 "${act}" selected — you're so naughty 💕`);
-            showLoveBurst(div);
+            sexyFeedback(`💜 "${act}" selected — you're so naughty 💜`);
+            showItemBurst(div);
           } else {
-            sexyFeedback(`🖤 unchecked "${act}" — maybe later? 🖤`);
+            sexyFeedback(`🖤 unchecked "${act}" — maybe next time 🖤`);
           }
         }
       });
       
-      // Put in left column first, then right column exactly as you had
-      if (i < 5) { left.appendChild(div); } 
+      // Split into columns: first half left, second half right (preserving your logic)
+      if (i < Math.ceil(ACTIVITIES.length / 2)) { left.appendChild(div); } 
       else { right.appendChild(div); }
     });
 
+    // Feelings buttons
     const ynBox = document.getElementById('yesNoGroup');
     ynBox.innerHTML = '';
-    config.yesNo.forEach(opt => {
+    FEELINGS.forEach(opt => {
       const btn = document.createElement('div');
       btn.className = 'choice-btn' + (state.yn === opt.v ? ' selected-' + opt.v : '');
       btn.textContent = opt.t;
@@ -471,18 +496,19 @@
         state.yn = opt.v; 
         render();
         let msg = '';
-        if(opt.v === 'yes') msg = "💋 YES! let's get wild, love 💋";
-        else if(opt.v === 'no') msg = "🥺 okay sweetheart, i respect that 🥺";
-        else msg = "😏 maybe... i love the suspense 😏";
+        if(opt.v === 'yes') msg = "💜 YES! let's get lost in the dark 💜";
+        else if(opt.v === 'no') msg = "😌 okay love, i respect that 😌";
+        else msg = "💋 maybe... the tension is delicious 💋";
         sexyFeedback(msg);
-        showLoveBurst(btn);
+        showItemBurst(btn);
       };
       ynBox.appendChild(btn);
     });
 
+    // Involvement cards
     const abcBox = document.getElementById('abcGroup');
     abcBox.innerHTML = '';
-    config.abc.forEach((opt, idx) => {
+    INVOLVEMENT.forEach((opt, idx) => {
       const card = document.createElement('div');
       card.className = 'abc-card' + (state.abc === idx ? ' selected' : '');
       card.innerHTML = `<div>${opt.i}</div><div style="font-size:0.8rem">${opt.l}</div>`;
@@ -491,53 +517,51 @@
         render();
         let partnerMsg = '';
         if(idx === 0) partnerMsg = "👩‍❤️‍👨 Both of us — perfect balance, baby 👩‍❤️‍👨";
-        else if(idx === 1) partnerMsg = "🧛 Just me — selfish but sexy 😈";
+        else if(idx === 1) partnerMsg = "🧛 Just me — selfish & sexy 😈";
         else partnerMsg = "🧕 Just you — all about you, my love 💖";
         sexyFeedback(partnerMsg);
-        showLoveBurst(card);
+        showItemBurst(card);
       };
       abcBox.appendChild(card);
     });
   }
 
-  // ---- SAVE / LOAD (unchanged, your original system) ----
+  // SAVE & LOAD (preserved functionality)
   document.getElementById('saveBtn').onclick = () => {
     const note = document.getElementById('freeNote').value;
-    const dataToSave = { ...state, note: note };
+    const dataToSave = { acts: state.acts, yn: state.yn, abc: state.abc, note: note };
     const data = btoa(encodeURIComponent(JSON.stringify(dataToSave)));
     const url = window.location.href.split('#')[0] + '#data=' + data;
     document.getElementById('shareArea').style.display = 'block';
     document.getElementById('linkPath').textContent = url;
-    sexyFeedback("✨ spicy link ready! copy & send to your Mrs ✨", true);
-    // scroll to share area
+    sexyFeedback("🔮 dark link ready! copy & send to your Mrs 🔮");
     document.getElementById('shareArea').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   };
 
   document.getElementById('copyBtn').onclick = () => {
     const linkText = document.getElementById('linkPath').textContent;
     navigator.clipboard.writeText(linkText).then(() => {
-      sexyFeedback("📋 link copied! now send her some love 💌");
+      sexyFeedback("📋 link copied! now send her some purple love 💜");
     }).catch(() => {
-      alert("copy manually, honey 💋");
+      alert("copy manually, my love 💋");
     });
   };
   
-  // reset with sexy confirmation
   const resetBtn = document.getElementById('resetBtn');
   if(resetBtn) {
     resetBtn.onclick = () => {
-      if(confirm("🔥 reset all desires? we can start fresh, my love 🔥")) {
+      if(confirm("🖤 reset all desires? start fresh, baby 🖤")) {
         state = { acts: {}, yn: null, abc: null };
         document.getElementById('freeNote').value = '';
         render();
         document.getElementById('shareArea').style.display = 'none';
-        sexyFeedback("💗 wiped clean — ready for new fantasies 💗");
-        showLoveBurst(resetBtn);
+        sexyFeedback("💜 wiped clean — ready for new dark fantasies 💜");
+        showItemBurst(resetBtn);
       }
     };
   }
 
-  // Load from URL if data exists (preserving your original loader)
+  // Load from URL hash
   const hash = window.location.hash;
   if (hash.includes('data=')) {
     try {
@@ -546,38 +570,36 @@
       document.getElementById('freeNote').value = saved.note || '';
       render();
       setTimeout(() => {
-        sexyFeedback("💞 loaded your saved desires... let's continue, baby 💞");
-      }, 200);
+        sexyFeedback("🖤 loaded your saved desires... let's continue, my love 🖤");
+      }, 300);
     } catch(e) {}
   } else {
-    // small welcome flirt
     setTimeout(() => {
       sexyFeedback("😈 select what you crave... i'm all yours 😈");
     }, 500);
   }
 
   render();
-
-  // extra ambient floating hearts (soft background romance)
-  setInterval(() => {
-    if (document.hidden) return;
-    const heartSpan = document.createElement('span');
-    heartSpan.innerHTML = '❤️‍🔥';
-    heartSpan.style.position = 'fixed';
-    heartSpan.style.bottom = '-10px';
-    heartSpan.style.left = Math.random() * window.innerWidth + 'px';
-    heartSpan.style.fontSize = '16px';
-    heartSpan.style.opacity = '0.5';
-    heartSpan.style.pointerEvents = 'none';
-    heartSpan.style.transition = 'all 4s linear';
-    heartSpan.style.zIndex = '999';
-    document.body.appendChild(heartSpan);
-    setTimeout(() => {
-      heartSpan.style.transform = 'translateY(-90px)';
-      heartSpan.style.opacity = '0';
-    }, 20);
-    setTimeout(() => heartSpan.remove(), 4000);
-  }, 3500);
+  
+  // Start random kissing animation (floating kisses everywhere)
+  startKissRain();
+  
+  // also spawn extra kisses when clicking anywhere on cards for fun
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON' && e.target.tagName !== 'TEXTAREA') {
+        // spawn a kiss near click position
+        const kissDiv = document.createElement('div');
+        kissDiv.className = 'kiss-animation';
+        kissDiv.innerHTML = '💋';
+        kissDiv.style.position = 'fixed';
+        kissDiv.style.left = e.clientX - 15 + 'px';
+        kissDiv.style.top = e.clientY - 20 + 'px';
+        document.body.appendChild(kissDiv);
+        setTimeout(() => kissDiv.remove(), 2000);
+      }
+    });
+  });
 </script>
 </body>
 </html>
